@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OrdersManager.WPF.Services;
+using OrdersManager.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,10 +20,11 @@ namespace OrdersManager.WPF
         private static IHost _host;
         public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
         public static IServiceProvider Services => Host.Services;
-        internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
-        {
-            
-        }
+        internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
+            .AddServices()
+            .AddViewModel()
+        ;
+      
         protected override async void OnStartup(StartupEventArgs e)
         {
             var host = Host;
