@@ -2,17 +2,14 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace OrdersManager.DAL.Entityes
 {
-    public class Order:EntityBase
+    public class Employee:PersonEntityBase
     {
         [Required]
-        [MaxLength(50)]
-        public string Contractor { get; set; }
-        [Required]
         [Column(TypeName ="Date")]
-        public DateTime Date { get; set; }        
+        public DateTime Birthday { get; set; }
+        public virtual Department Department { get; set; }
     }
 }
