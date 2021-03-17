@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OrdersManager.DAL.Entityes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,5 +12,8 @@ namespace OrdersManager.DAL.Context
         {
 
         }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }
