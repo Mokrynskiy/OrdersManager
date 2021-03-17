@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OrdersManager.WPF.Data;
 using OrdersManager.WPF.Services;
 using OrdersManager.WPF.ViewModels;
 using System;
@@ -21,6 +22,7 @@ namespace OrdersManager.WPF
         public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
         public static IServiceProvider Services => Host.Services;
         internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
+            .AddDatabase(host.Configuration.GetSection("Database"))
             .AddServices()
             .AddViewModel()
         ;
