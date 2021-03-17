@@ -13,6 +13,7 @@ namespace OrdersManager.DAL.Entityes
         public string Contractor { get; set; }
         [Required]
         [Column(TypeName ="Date")]
-        public DateTime Date { get; set; }        
+        public DateTime Date { get; set; }   
+        public virtual Employee Author { get; set; }
     }
 }
