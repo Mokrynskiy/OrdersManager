@@ -13,7 +13,7 @@ namespace OrdersManager.WPF.Data
     static class DbRegistrator
     {
         public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration) => services
-            .AddDbContext<OrdersManagerDbContext>(opt=>
+            .AddDbContext<OrdersManagerDbContext>(opt =>
             {
                 var type = configuration["Type"];
                 switch (type)
@@ -28,9 +28,10 @@ namespace OrdersManager.WPF.Data
                     case "SQLite":
                         opt.UseSqlite(configuration.GetConnectionString(type));
                         break;
-                    
+
                 }
             })
+            .AddTransient<DbInitializer>()
             ;
     }
 }

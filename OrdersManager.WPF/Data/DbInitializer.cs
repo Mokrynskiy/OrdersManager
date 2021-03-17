@@ -21,7 +21,7 @@ namespace OrdersManager.WPF.Data
         }
         public async Task InitializeAsync()
         {
-            await _db.Database.EnsureDeletedAsync();
+            await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
             await _db.Database.MigrateAsync();
             await InitializeDataAsync();
         }
@@ -107,7 +107,7 @@ namespace OrdersManager.WPF.Data
                 }
             });
             _db.SaveChanges();
-            foreach (var item in _db.Departments)
+            foreach (var item in _db.Departments.ToArray())
             {
                 var emploeey = (from e in _db.Employees where e.Department == item select e).FirstOrDefault();
                 item.ManagerId = emploeey.Id;
