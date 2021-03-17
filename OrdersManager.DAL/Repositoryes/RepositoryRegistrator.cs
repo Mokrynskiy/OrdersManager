@@ -11,8 +11,8 @@ namespace OrdersManager.DAL.Repositoryes
     {
         public static IServiceCollection AddRepositoryesInDb(this IServiceCollection services) => services
             .AddTransient<IRepository<Department>, DbRepository<Department>>()
-            .AddTransient<IRepository<Employee>, DbRepository<Employee>>()
-            .AddTransient<IRepository<Order>, DbRepository<Order>>()
+            .AddTransient<IRepository<Employee>, EmploeesRepository>()
+            .AddTransient<IRepository<Order>, OrdersRepository>()
             ;
     }
 }
