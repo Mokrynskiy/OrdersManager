@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OrdersManager.DAL.Repositoryes
 {
-    public class DbRepository<T> : IRepository<T> where T: EntityBase, new()
+    internal class DbRepository<T> : IRepository<T> where T: EntityBase, new()
     {
         private readonly OrdersManagerDbContext _db;
         private readonly DbSet<T> _set;

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OrdersManager.DAL.Context;
 using Microsoft.EntityFrameworkCore;
+using OrdersManager.DAL.Repositoryes;
 
 namespace OrdersManager.WPF.Data
 {
@@ -32,6 +33,7 @@ namespace OrdersManager.WPF.Data
                 }
             })
             .AddTransient<DbInitializer>()
+            .AddRepositoryesInDb()
             ;
     }
 }
