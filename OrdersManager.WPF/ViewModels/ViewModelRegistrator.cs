@@ -11,6 +11,9 @@ namespace OrdersManager.WPF.ViewModels
     {
         public static IServiceCollection AddViewModel(this IServiceCollection services) => services
             .AddSingleton<MainWindowViewModel>()
+            .AddSingleton<OrdersViewModel>()
+            .AddSingleton<EmployeesViewModel>()
+            .AddSingleton<DepartmentsViewModel>()
         ;
     }
 }

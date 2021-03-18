@@ -9,5 +9,8 @@
     <DataTemplate DataType="{x:Type vm:DepartmentsViewModel}">
         <views:DepartmentsView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:OrdersViewModel}">
+        <views:OrdersView DataContext="{Binding}"/>
+    </DataTemplate>
     
 </ResourceDictionary>

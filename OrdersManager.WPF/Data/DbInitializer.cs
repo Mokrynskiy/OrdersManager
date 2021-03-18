@@ -19,13 +19,17 @@ namespace OrdersManager.WPF.Data
             _db = db;
             _loger = loger;
         }
+
+        
         public async Task InitializeAsync()
         {
-            await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
-            await _db.Database.MigrateAsync();
-            await InitializeDataAsync();
+            // ДЛЯ СОЗДАНИЯ И ИНИЦИАЛИЗАЦИИ БАЗЫ ДАННЫХ НАЧАЛЬНЫМИ ДАННЫМИ РАСКОМЕНТИРОВАТЬ!!!!
+
+            //await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
+            //await _db.Database.MigrateAsync();
+            //await InitializeDataAsync();
         }
-        
+
         private async Task InitializeDataAsync()
         {
             _db.Departments.Add(new Department
