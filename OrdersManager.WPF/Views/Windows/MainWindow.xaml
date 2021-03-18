@@ -8,6 +8,6 @@
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" Height="450" Width="800">
     <Grid>
-
+        <ContentControl Content="{Binding CurrentModel}"/>
     </Grid>
 </Window>
