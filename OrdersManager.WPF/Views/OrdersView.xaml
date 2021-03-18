@@ -19,10 +19,16 @@
         </Grid.RowDefinitions>
         <DockPanel>
             <TextBlock Style="{StaticResource Title}">ЗАКАЗЫ</TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                <Button Margin="0,5,5,5" Width="90" ToolTip="Добавить заказ">Добавить</Button>
-                <Button Margin="0,5,5,5" Width="90" ToolTip="Редактировать заказ">Редактировать</Button>
-                <Button Margin="0,5,5,5" Width="90" ToolTip="Удалить заказ">Удалить</Button>
+            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" >
+                <Button Margin="5"  ToolTip="Добавить заказ">
+                    <Image Source="../Img/add.png" Width="30"/>
+                </Button>
+                <Button Margin="5"  ToolTip="Редактировать заказ">
+                    <Image Source="../Img/edit.png" Width="30" />
+                </Button>
+                <Button Margin="5"  ToolTip="Удалить заказ">
+                    <Image Source="../Img/delete.png" Width="30" />
+                </Button>
             </StackPanel>
         </DockPanel>
        

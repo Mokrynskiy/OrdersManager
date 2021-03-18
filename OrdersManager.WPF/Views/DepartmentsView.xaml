@@ -23,10 +23,16 @@
         </Grid.ColumnDefinitions>
         <DockPanel Grid.ColumnSpan="2">
             <TextBlock Style="{StaticResource Title}">ОТДЕЛЫ</TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right" >
-                <Button Margin="0,5,5,5" Width="90" ToolTip="Добавить отдел">Добавить</Button>
-                <Button Margin="0,5,5,5" Width="90" ToolTip="Удалить отдел">Редактировать</Button>
-                <Button Margin="0,5,5,5" Width="90" ToolTip="Редактировать отдел">Удалить</Button>
+            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" >
+                <Button Margin="5"  ToolTip="Добавить отдел">
+                    <Image Source="../Img/add.png" Width="30"/>
+                </Button>
+                <Button Margin="5"  ToolTip="Редактировать отдел">
+                    <Image Source="../Img/edit.png" Width="30" />
+                </Button>
+                <Button Margin="5"  ToolTip="Удалить отдел">
+                    <Image Source="../Img/delete.png" Width="30" />
+                </Button>
             </StackPanel>
         </DockPanel>        
         <Border Grid.Row="1" Style="{StaticResource GroupBorder}" Margin="5">
@@ -67,19 +73,19 @@
                                 <StackPanel Grid.Column="1" Margin="20,0,0,0">
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Фамилия:"/>
-                                        <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeSurname}" Margin="10,0,0,0"/>
+                                        <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeSurname}" Margin="10,0,0,5"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Имя:"/>
-                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeName}" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeName}" Margin="10,0,0,5"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Отчество:"/>
-                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeePatronymic}" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeePatronymic}" Margin="10,0,0,5"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Пол:"/>
-                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeGender}" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeGender}" Margin="10,0,0,5"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Дата рождения:"/>
@@ -99,12 +105,18 @@
                         </Grid.RowDefinitions>
                         <DockPanel>
                         <TextBlock Style="{StaticResource Lable}" VerticalAlignment="Center">Список сотрудников</TextBlock>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Margin="0,5,5,5" Width="90" ToolTip="Добавить сотрудника">Добавить</Button>
-                                <Button Margin="0,5,5,5" Width="90" ToolTip="Редактировать сотрудника">Редактировать</Button>
-                                <Button Margin="0,5,5,5" Width="90" ToolTip="Удалить сотрудника">Удалить</Button>
-                            </StackPanel>
-                        </DockPanel>                        
+                        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" >
+                            <Button Margin="5"  ToolTip="Добавить сотрудника">
+                                <Image Source="../Img/add.png" Width="30"/>
+                            </Button>
+                            <Button Margin="5"  ToolTip="Редактировать сотрудника">
+                                <Image Source="../Img/edit.png" Width="30" />
+                            </Button>
+                            <Button Margin="5"  ToolTip="Удалить сотрудника">
+                                <Image Source="../Img/delete.png" Width="30" />
+                            </Button>
+                        </StackPanel>
+                    </DockPanel>                        
                         <Border Grid.Row="1" Style="{StaticResource GroupBorder}" Margin="3">
                             <DataGrid Margin="3" ItemsSource="{Binding SelectedDepartment.Employees}">
                                 <DataGrid.Columns>

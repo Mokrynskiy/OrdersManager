@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Img\add.png" />
+    <None Remove="Img\delete.png" />
+    <None Remove="Img\edit.png" />
     <None Remove="Img\Photo.jpg" />
   </ItemGroup>
 
@@ -33,6 +36,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Img\add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Img\delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Img\edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Img\Photo.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

@@ -2,12 +2,6 @@
 using MathCore.WPF.ViewModels;
 using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
-using OrdersManager.WPF.Services.interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace OrdersManager.WPF.ViewModels
@@ -18,8 +12,7 @@ namespace OrdersManager.WPF.ViewModels
         private string _title = "Главное окно";        
         private readonly IRepository<Employee> _employeesRepository;
         private readonly IRepository<Department> _departmentsRepository;
-        private readonly IRepository<Order> _ordersRepository;
-        private readonly IOrderService _orderService;
+        private readonly IRepository<Order> _ordersRepository;        
         private ViewModel _currentModel;
         #endregion
 
@@ -68,12 +61,12 @@ namespace OrdersManager.WPF.ViewModels
         public ViewModel CurrentModel { get => _currentModel; private set => Set(ref _currentModel, value); }
         #endregion
         public MainWindowViewModel(IRepository<Employee> employeeRepository, IRepository<Department> departmentRepository,
-            IRepository<Order> orderReposytory, IOrderService orderService)
+            IRepository<Order> orderReposytory)
         {
             _employeesRepository = employeeRepository;
             _departmentsRepository = departmentRepository;
             _ordersRepository = orderReposytory;
-            _orderService = orderService;            
+                 
         }
 
     }
