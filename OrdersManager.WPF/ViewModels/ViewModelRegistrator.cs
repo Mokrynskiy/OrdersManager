@@ -10,10 +10,10 @@ namespace OrdersManager.WPF.ViewModels
     static class ViewModelRegistrator
     {
         public static IServiceCollection AddViewModel(this IServiceCollection services) => services
-            .AddSingleton<MainWindowViewModel>()
-            .AddSingleton<OrdersViewModel>()
-            .AddSingleton<EmployeesViewModel>()
-            .AddSingleton<DepartmentsViewModel>()
+            .AddTransient<MainWindowViewModel>()
+            .AddTransient<OrdersViewModel>()
+            .AddTransient<EmployeesViewModel>()
+            .AddTransient<DepartmentsViewModel>()
         ;
     }
 }

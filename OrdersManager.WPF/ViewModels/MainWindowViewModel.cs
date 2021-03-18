@@ -25,7 +25,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool CanShowEmployeeCommandExecute() => true; 
         private void OnShowEmployeesViewCommanExecuted()
         {
-            CurrentModel = new EmployeesViewModel(_employeesRepository);
+            CurrentModel = new EmployeesViewModel(_employeesRepository, _ordersRepository);
         }
         #endregion
 
@@ -36,7 +36,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool CanShowDepartmentsCommandExecute() => true;
         private void OnShowDepartmentsViewCommanExecuted()
         {
-            CurrentModel = new DepartmentsViewModel(_departmentsRepository);
+            CurrentModel = new DepartmentsViewModel(_departmentsRepository, _employeesRepository);
         }
         #endregion
 
@@ -47,7 +47,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool CanShowOrdersCommandExecute() => true;
         private void OnShowOrdersViewCommanExecuted()
         {
-            CurrentModel = new OrdersViewModel(_ordersRepository, _employeesRepository);
+            CurrentModel = new OrdersViewModel(_ordersRepository);
         }
         #endregion
 

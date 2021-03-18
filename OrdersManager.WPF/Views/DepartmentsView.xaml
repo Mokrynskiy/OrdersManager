@@ -24,13 +24,13 @@
         <DockPanel Grid.ColumnSpan="2">
             <TextBlock Style="{StaticResource Title}">ОТДЕЛЫ</TextBlock>
             <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" >
-                <Button Margin="5"  ToolTip="Добавить отдел">
+                <Button Margin="5"  ToolTip="Добавить отдел" Command="{Binding AddDepartmentCommand}">
                     <Image Source="../Img/add.png" Width="30"/>
                 </Button>
-                <Button Margin="5"  ToolTip="Редактировать отдел">
+                <Button Margin="5"  ToolTip="Редактировать отдел" Command="{Binding EditDepartmentCommand}">
                     <Image Source="../Img/edit.png" Width="30" />
                 </Button>
-                <Button Margin="5"  ToolTip="Удалить отдел">
+                <Button Margin="5"  ToolTip="Удалить отдел" Command="{Binding DeleteDepartmentCommand}">
                     <Image Source="../Img/delete.png" Width="30" />
                 </Button>
             </StackPanel>
@@ -106,19 +106,19 @@
                         <DockPanel>
                         <TextBlock Style="{StaticResource Lable}" VerticalAlignment="Center">Список сотрудников</TextBlock>
                         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" >
-                            <Button Margin="5"  ToolTip="Добавить сотрудника">
+                            <Button Margin="5"  ToolTip="Добавить сотрудника" Command="{Binding AddEmployeeCommand}">
                                 <Image Source="../Img/add.png" Width="30"/>
                             </Button>
-                            <Button Margin="5"  ToolTip="Редактировать сотрудника">
+                            <Button Margin="5"  ToolTip="Редактировать сотрудника" Command="{Binding EditEmployeeCommand}">
                                 <Image Source="../Img/edit.png" Width="30" />
                             </Button>
-                            <Button Margin="5"  ToolTip="Удалить сотрудника">
+                            <Button Margin="5"  ToolTip="Удалить сотрудника" Command="{Binding DeleteEmployeeCommand}">
                                 <Image Source="../Img/delete.png" Width="30" />
                             </Button>
                         </StackPanel>
                     </DockPanel>                        
                         <Border Grid.Row="1" Style="{StaticResource GroupBorder}" Margin="3">
-                            <DataGrid Margin="3" ItemsSource="{Binding SelectedDepartment.Employees}">
+                            <DataGrid Margin="3" ItemsSource="{Binding SelectedDepartment.Employees}" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding EmployeeSurname}" Width="*"/>
                                     <DataGridTextColumn Header="Имя" Binding="{Binding EmployeeName}" Width="*"/>

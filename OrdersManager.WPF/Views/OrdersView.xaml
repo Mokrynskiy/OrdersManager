@@ -26,13 +26,13 @@
                 <Button Margin="5"  ToolTip="Редактировать заказ">
                     <Image Source="../Img/edit.png" Width="30" />
                 </Button>
-                <Button Margin="5"  ToolTip="Удалить заказ">
+                <Button Margin="5"  ToolTip="Удалить заказ" Command="{Binding DeleteOrderCommand}">
                     <Image Source="../Img/delete.png" Width="30" />
                 </Button>
             </StackPanel>
         </DockPanel>
        
-        <DataGrid ItemsSource="{Binding Orders}" Margin="5" Grid.Row="1">
+        <DataGrid ItemsSource="{Binding Orders}" Margin="5" Grid.Row="1" SelectedItem="{Binding SelectedOrder, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Дата" Binding="{Binding OrderDate, StringFormat='{}{0:dd.MM.yyyy}'}" Width="0.2*"/>            
                 <DataGridTextColumn Header="Контрагент" Binding="{Binding Contractor}" Width="0.5*"/>              

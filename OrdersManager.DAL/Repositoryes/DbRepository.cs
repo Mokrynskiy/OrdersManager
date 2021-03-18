@@ -48,7 +48,8 @@ namespace OrdersManager.DAL.Repositoryes
 
         public void Remove(int id)
         {
-            _db.Remove(new T { Id = id });
+            var item = _set.Local.FirstOrDefault(i => i.Id == id) ?? new T { Id = id };
+            _db.Remove(item);
             if (AutoSaveChanges) _db.SaveChanges();
         }
 
@@ -72,6 +73,8 @@ namespace OrdersManager.DAL.Repositoryes
             if (AutoSaveChanges) await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
             
         }
+
+        
     }
     class OrdersRepository : DbRepository<Order>
     {

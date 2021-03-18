@@ -24,13 +24,13 @@
         <DockPanel Grid.ColumnSpan="2">
             <TextBlock Style="{StaticResource Title}">СОТРУДНИКИ</TextBlock>
             <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" >
-                <Button Margin="5"  ToolTip="Добавить сотрудника">
+                <Button Margin="5"  ToolTip="Добавить сотрудника" Command="{Binding AddEmployeeCommand}">
                     <Image Source="../Img/add.png" Width="30"/>
                 </Button>
-                <Button Margin="5"  ToolTip="Редактировать сотрудника">
+                <Button Margin="5"  ToolTip="Редактировать сотрудника" Command="{Binding EditEmployeeCommand}">
                     <Image Source="../Img/edit.png" Width="30" />
                 </Button>
-                <Button Margin="5"  ToolTip="Удалить сотрудника">
+                <Button Margin="5"  ToolTip="Удалить сотрудника" Command="{Binding DeleteEmployeeCommand}">
                     <Image Source="../Img/delete.png" Width="30" />
                 </Button>
             </StackPanel>
@@ -115,19 +115,19 @@
                     <DockPanel>
                         <TextBlock Style="{StaticResource Lable}" VerticalAlignment="Center">Список заказав сотрудника</TextBlock>
                         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" >
-                            <Button Margin="5"  ToolTip="Добавить заказ">
+                            <Button Margin="5"  ToolTip="Добавить заказ" Command="{Binding AddOrderCommand}">
                                 <Image Source="../Img/add.png" Width="30"/>
                             </Button>
-                            <Button Margin="5"  ToolTip="Удалить заказ">
+                            <Button Margin="5"  ToolTip="Удалить заказ" Command="{Binding EditOrderCommand}">
                                 <Image Source="../Img/edit.png" Width="30" />
                             </Button>
-                            <Button Margin="5"  ToolTip="Редактировать заказ">
+                            <Button Margin="5"  ToolTip="Редактировать заказ" Command="{Binding DeleteOrderCommand}">
                                 <Image Source="../Img/delete.png" Width="30" />
                             </Button>
                         </StackPanel>
                     </DockPanel>
                     <Border Grid.Row="1" Style="{StaticResource GroupBorder}" Margin="3">
-                        <DataGrid Margin="3" ItemsSource="{Binding SelectedEmployee.Orders}">
+                        <DataGrid Margin="3" ItemsSource="{Binding SelectedEmployee.Orders}" SelectedItem="{Binding SelectedOrder, Mode=TwoWay}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Дата заказа" Binding="{Binding OrderDate, StringFormat='{}{0:dd.MM.yyyy}'}" Width="*"/>
                                 <DataGridTextColumn Header="Контрагент" Binding="{Binding Contractor}" Width="4*"/>                                
