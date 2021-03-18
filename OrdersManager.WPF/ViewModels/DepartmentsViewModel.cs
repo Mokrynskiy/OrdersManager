@@ -18,13 +18,13 @@ namespace OrdersManager.WPF.ViewModels
 {
     public class DepartmentsViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<Department> _departmentsRepository;
-        private readonly IRepository<Employee> _employeesRepository;
+        private readonly IRepository<Department> _departmentsRepository;       
         private DepartmentModel selectedDepattment;
-        public ObservableCollection<DepartmentModel> Departments { get; set; }        
-        
+        public ObservableCollection<DepartmentModel> Departments { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
+
         public DepartmentModel SelectedDepartment {
             get
             {
@@ -40,7 +40,6 @@ namespace OrdersManager.WPF.ViewModels
                 }
             }
         }
-
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
@@ -67,21 +66,26 @@ namespace OrdersManager.WPF.ViewModels
                 foreach (var i in item.Employees)
                 {
                     emp.Add(new EmployeeModel {
-                        EmployeeName = i.Name, 
+                        EmployeeSurname = i.Surname,
+                        EmployeeName = i.Name,
+                        EmployeePatronymic = i.Patronymic,
                         EmployeeGender = i.Gender, 
                         EmployeeId = i.Id, 
-                        EmployeePatronymic = i.Patronymic, 
-                        EmployeeSurname = i.Surname});
+                        EmployeeBirthdey = i.Birthday                     
+                        });
                 }
-                
+                var mgr = (from m in item.Employees where m.Id == item.ManagerId select m).FirstOrDefault();
+                EmployeeModel manager = new EmployeeModel { EmployeeId = mgr.Id, EmployeeSurname = mgr.Surname, EmployeeName = mgr.Name, EmployeePatronymic = mgr.Patronymic, EmployeeBirthdey = mgr.Birthday, EmployeeGender = mgr.Gender };
                 DepartmentModel department = new DepartmentModel {
                     DepartmentId = item.Id,
                     DepartmentName = item.Name,
                     ManagerId = item.ManagerId,
+                    Manager = manager,
                     Employees = new ObservableCollection<EmployeeModel>(emp)
                 };
                 Departments.Add(department);                
-            }            
+            }
+            SelectedDepartment = Departments.FirstOrDefault();
         }
         #endregion     
         

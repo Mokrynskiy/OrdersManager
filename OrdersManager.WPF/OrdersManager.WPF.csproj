@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Img\Photo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Infrastructure\Commands\" />
   </ItemGroup>
 
@@ -26,6 +30,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OrdersManager.DAL\OrdersManager.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Img\Photo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

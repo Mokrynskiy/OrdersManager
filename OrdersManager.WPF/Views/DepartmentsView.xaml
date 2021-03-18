@@ -13,6 +13,112 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        
-    </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.ColumnSpan="2">
+            <TextBlock Style="{StaticResource Title}">ОТДЕЛЫ</TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right" >
+                <Button Margin="0,5,5,5" Width="90" ToolTip="Добавить отдел">Добавить</Button>
+                <Button Margin="0,5,5,5" Width="90" ToolTip="Удалить отдел">Редактировать</Button>
+                <Button Margin="0,5,5,5" Width="90" ToolTip="Редактировать отдел">Удалить</Button>
+            </StackPanel>
+        </DockPanel>        
+        <Border Grid.Row="1" Style="{StaticResource GroupBorder}" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource Lable}">Список отделов</TextBlock>
+                <ListBox ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}" Margin="3" Grid.Row="1">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DepartmentName}"></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+         
+            <Border Style="{StaticResource GroupBorder}" Grid.Row="1" Grid.Column="1"  Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource Lable}">Руководитель отдела</TextBlock>
+                        <Border Grid.Row="1" Style="{StaticResource GroupBorder}" Margin="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="1" Margin="20,0,0,0">
+                                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                        <TextBlock Text="Фамилия:"/>
+                                        <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeSurname}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                        <TextBlock Text="Имя:"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeName}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                        <TextBlock Text="Отчество:"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeePatronymic}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                        <TextBlock Text="Пол:"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeGender}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                        <TextBlock Text="Дата рождения:"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeBirthdey, StringFormat='{}{0:dd.MM.yyyy}'}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Border Style="{StaticResource GroupBorder}" Margin="5">
+                                <Image Source="../Img/Photo.jpg" Width="120"/>
+                                </Border>                                
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <DockPanel>
+                        <TextBlock Style="{StaticResource Lable}" VerticalAlignment="Center">Список сотрудников</TextBlock>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Margin="0,5,5,5" Width="90" ToolTip="Добавить сотрудника">Добавить</Button>
+                                <Button Margin="0,5,5,5" Width="90" ToolTip="Редактировать сотрудника">Редактировать</Button>
+                                <Button Margin="0,5,5,5" Width="90" ToolTip="Удалить сотрудника">Удалить</Button>
+                            </StackPanel>
+                        </DockPanel>                        
+                        <Border Grid.Row="1" Style="{StaticResource GroupBorder}" Margin="3">
+                            <DataGrid Margin="3" ItemsSource="{Binding SelectedDepartment.Employees}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Фамилия" Binding="{Binding EmployeeSurname}" Width="*"/>
+                                    <DataGridTextColumn Header="Имя" Binding="{Binding EmployeeName}" Width="*"/>
+                                    <DataGridTextColumn Header="Отчество" Binding="{Binding EmployeePatronymic}" Width="*"/>
+                                    <DataGridTextColumn Header="Пол" Binding="{Binding EmployeeGender}" Width="*"/>
+                                <DataGridTextColumn Header="Дата рождения" Binding="{Binding EmployeeBirthdey, StringFormat='{}{0:dd.MM.yyyy}'}" Width="*"/>
+                                </DataGrid.Columns>                                    
+                            </DataGrid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+           
+ </Grid>
 </UserControl>

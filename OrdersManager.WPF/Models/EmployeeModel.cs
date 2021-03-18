@@ -14,6 +14,7 @@ namespace OrdersManager.WPF.Models
         public string EmployeeSurname { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeePatronymic { get; set; }
+        public DateTime EmployeeBirthdey { get; set; }
         public Gender EmployeeGender { get; set; }
         public DepartmentModel Department { get; set; }
         public ObservableCollection<OrderModel> Orders { get; set; }
