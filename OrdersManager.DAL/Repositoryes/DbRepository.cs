@@ -83,8 +83,16 @@ namespace OrdersManager.DAL.Repositoryes
     }
     class EmploeesRepository : DbRepository<Employee>
     {
-        public override IQueryable<Employee> Items => base.Items.Include(item => item.Department);
+        public override IQueryable<Employee> Items => base.Items.Include(item => item.Department).Include(item =>item.Orders);
         public EmploeesRepository(OrdersManagerDbContext db) : base(db)
+        {
+
+        }
+    }
+    class DepartmentsReposytory : DbRepository<Department>
+    {
+        public override IQueryable<Department> Items => base.Items.Include(item => item.Employees);
+        public DepartmentsReposytory (OrdersManagerDbContext db) : base(db)
         {
 
         }

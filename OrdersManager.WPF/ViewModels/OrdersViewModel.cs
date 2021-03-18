@@ -16,7 +16,7 @@ namespace OrdersManager.WPF.ViewModels
         private readonly IRepository<Employee> _employeesRepository;
         public  ObservableCollection<OrderModel> Orders { get; set; }
 
-        #region LoadOrdersCommand (отображение представления заказов)
+        #region LoadOrdersCommand (загрузка данных о заказах)
         private ICommand _loadOrdersCommand;
         public ICommand LoadOrdersCommand => _loadOrdersCommand
             ??= new LambdaCommand(LoadOrdersCommanExecuted, LoadOrdersCommandExecute);

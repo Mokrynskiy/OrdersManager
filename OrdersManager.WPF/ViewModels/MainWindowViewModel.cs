@@ -43,7 +43,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool CanShowDepartmentsCommandExecute() => true;
         private void OnShowDepartmentsViewCommanExecuted()
         {
-            CurrentModel = new DepartmentsViewModel(_departmentsRepository);
+            CurrentModel = new DepartmentsViewModel(_departmentsRepository, _employeesRepository);
         }
         #endregion
 
