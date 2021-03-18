@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrdersManager.DAL.Entityes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OrdersManager.DAL.Context
 {

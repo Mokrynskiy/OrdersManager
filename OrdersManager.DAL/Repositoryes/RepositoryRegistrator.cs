@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OrdersManager.DAL.Repositoryes
 {

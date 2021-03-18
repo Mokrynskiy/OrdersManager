@@ -4,12 +4,10 @@ using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
 using OrdersManager.WPF.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -61,10 +59,7 @@ namespace OrdersManager.WPF.ViewModels
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #region LoadDepartmentsCommand (Загрузка данных о департаментах)        
@@ -198,7 +193,7 @@ namespace OrdersManager.WPF.ViewModels
         #endregion
         #region EditEmployeeCommand (Редактирование данных о сотрудние)        
         private ICommand _editEmployeeCommand;
-        public ICommand EditEmployeeCommand => _editDepartmentCommand
+        public ICommand EditEmployeeCommand => _editEmployeeCommand
             ??= new LambdaCommand(EditEmployeeCommanExecuted, EditEmployeeCommandExecute);
         private bool EditEmployeeCommandExecute() => true;
         private void EditEmployeeCommanExecuted()

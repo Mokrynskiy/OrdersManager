@@ -59,10 +59,7 @@ namespace OrdersManager.WPF.ViewModels
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #region LoadEmployeesCommand (Загрузка данных о сотрудниках)        
@@ -192,7 +189,7 @@ namespace OrdersManager.WPF.ViewModels
         #endregion
         #region EditEmployeeCommand (Редактирование данных о сотрудние)        
         private ICommand _editEmployeeCommand;
-        public ICommand EditEmployeeCommand => _editOrderCommand
+        public ICommand EditEmployeeCommand => _editEmployeeCommand
             ??= new LambdaCommand(EditEmployeeCommanExecuted, EditEmployeeCommandExecute);
         private bool EditEmployeeCommandExecute() => true;
         private void EditEmployeeCommanExecuted()

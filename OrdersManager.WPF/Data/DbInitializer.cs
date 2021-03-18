@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using OrdersManager.DAL.Context;
+﻿using OrdersManager.DAL.Context;
 using OrdersManager.DAL.Entityes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OrdersManager.WPF.Data
@@ -13,11 +10,11 @@ namespace OrdersManager.WPF.Data
     class DbInitializer
     {
         private readonly OrdersManagerDbContext _db;
-        private readonly ILogger<DbInitializer> _loger;
-        public DbInitializer(OrdersManagerDbContext db, ILogger<DbInitializer> loger)
+        
+        public DbInitializer(OrdersManagerDbContext db)
         {
             _db = db;
-            _loger = loger;
+            
         }
 
         
