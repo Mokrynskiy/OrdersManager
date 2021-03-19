@@ -36,6 +36,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool SetDepartmentCommandExecute() => true;
         private void SetDepartmentCommanExecuted()
         {
+            
             var dept = Departments.Where(d => d.Id == Employee.Department.Id).FirstOrDefault();
             Employee.Department = new DepartmentModel { Id = dept.Id, DepartmentName = dept.Name, ManagerId = dept.ManagerId };
         }

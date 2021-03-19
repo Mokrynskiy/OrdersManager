@@ -48,7 +48,7 @@
                         <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Дата рождения:</TextBlock>
                         <DatePicker Grid.Row="4" Grid.Column="1" Text="Binding" Margin="3" SelectedDate="{Binding Employee.Birthdey}"></DatePicker>
                         <TextBlock Grid.Row="5" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Отдел:</TextBlock>
-                        <ComboBox Grid.Row="5" Grid.Column="1" Text="Binding" Margin="3" ItemsSource="{Binding Departments}" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Employee.Department.Id}" IsEditable="True">
+                        <ComboBox Grid.Row="5" Grid.Column="1" Text="Binding" Margin="3" ItemsSource="{Binding Departments}" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Employee.Department.Id}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding SetDepartmentCommand}" />

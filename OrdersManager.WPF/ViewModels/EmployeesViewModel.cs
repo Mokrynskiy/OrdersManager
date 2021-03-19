@@ -5,6 +5,7 @@ using OrdersManager.Interfaces;
 using OrdersManager.WPF.Models;
 using OrdersManager.WPF.Services;
 using OrdersManager.WPF.Services.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -185,7 +186,32 @@ namespace OrdersManager.WPF.ViewModels
         private bool AddEmployeeCommandExecute() => true;
         private void AddEmployeeCommanExecuted()
         {
-
+            string title = "Добавление нового сотрудника";
+            var Empl = new EmployeeModel();
+            Empl.Department = new DepartmentModel();
+            Empl.Birthdey = DateTime.Now.AddYears(-18);
+            var Departments = _departmentRepository.Items.ToArray();
+            if (_employeeDialog.Edit(Empl, Departments, title))
+            {
+                if (Empl.Surname != null && Empl.Name != null && Empl.Patronymic != null && Empl.Department != null)
+                {
+                    var emp = new Employee();
+                    emp.Surname = Empl.Surname;
+                    emp.Name = Empl.Name;
+                    emp.Patronymic = Empl.Patronymic;
+                    emp.Gender = Empl.Gender;
+                    emp.Birthday = Empl.Birthdey;
+                    var dept = _departmentRepository.GetById(Empl.Department.Id);
+                    emp.Department = dept;
+                    _employeeRepository.Add(emp);
+                    Empl.Department.DepartmentName = dept.Name;
+                    SelectedEmployee = null;
+                    SelectedEmployee = Empl;
+                    return;
+                }                    
+                MessageBox.Show("Для добавдения сотрудника необходимо заполнить все поля!!!", 
+                    "Ошибка добавления сотрудника!!!", MessageBoxButton.OK, MessageBoxImage.Error);                
+            }     
         }
         #endregion
         public EmployeesViewModel(IRepository<Employee> employeeRepository, IRepository<Order> orderRepository, IRepository<Department>departmentRepository , IEmployeeDialog employeeDialog)
