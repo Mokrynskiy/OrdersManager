@@ -158,10 +158,10 @@ namespace OrdersManager.WPF.ViewModels
         private bool EditEmployeeCommandExecute() => true;
         private void EditEmployeeCommanExecuted()
         {
-            
+            string title = "Редактирование данных о сотруднике";
             var Employee = SelectedEmployee;
             var Departments = _departmentRepository.Items.ToArray();
-            if (_employeeDialog.Edit(Employee, Departments))
+            if (_employeeDialog.Edit(Employee, Departments, title))
             {
                 var emp = _employeeRepository.GetById(Employee.Id);
                 emp.Surname = Employee.Surname;

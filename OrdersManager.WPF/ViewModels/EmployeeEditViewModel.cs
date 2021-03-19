@@ -16,15 +16,17 @@ namespace OrdersManager.WPF.ViewModels
     public class EmployeeEditViewModel : ViewModel
     {
        
-        private EmployeeModel _employee;        
+        private EmployeeModel _employee;
+        public string Title { get; set; }
         public IEnumerable<Department> Departments { get; private set; }
         public EmployeeModel Employee { get => _employee; set => Set(ref _employee, value); }
         public IEnumerable<Gender> Genders { get=> Enum.GetValues(typeof(Gender)).Cast<Gender>();}
         
-        public EmployeeEditViewModel(EmployeeModel employee, IEnumerable<Department> departments)
+        public EmployeeEditViewModel(EmployeeModel employee, IEnumerable<Department> departments, string title)
         {           
             Employee = employee;
             Departments = departments;
+            Title = title;
         }
        
         #region SetDepartmentCommand (Редактирование данных о сотрудние)        

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OrdersManager.WPF.Views.Windows"
         xmlns:vm="clr-namespace:OrdersManager.WPF.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Binding" Height="280" Width="600"
+        Title="{Binding Title}" Height="280" Width="600"
         d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}" WindowStartupLocation="Manual" WindowStyle="ToolWindow" >        
         
         <Grid>
