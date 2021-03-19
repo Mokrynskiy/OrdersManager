@@ -14,53 +14,17 @@ using System.Windows.Input;
 
 namespace OrdersManager.WPF.ViewModels
 {
-    public class DepartmentsViewModel : ViewModel, INotifyPropertyChanged
+    public class DepartmentsViewModel : ViewModel
     {
         private readonly IRepository<Department> _departmentsRepository;
         private readonly IRepository<Employee> _employeessRepository;
-        private DepartmentModel selectedDepattment;
-        private EmployeeModel selectedEmployee;
-        public ObservableCollection<DepartmentModel> Departments { get; set; }
+        private ObservableCollection<DepartmentModel> _departments;
+        private DepartmentModel _selectedDepattment;
+        private EmployeeModel _selectedEmployee;
+        public ObservableCollection<DepartmentModel> Departments { get =>_departments; set=>Set(ref _departments,value); }
+        public DepartmentModel SelectedDepartment { get => _selectedDepattment; set => Set(ref _selectedDepattment, value); }
+        public EmployeeModel SelectedEmployee { get => _selectedEmployee; set => Set(ref _selectedEmployee, value);  }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-        public DepartmentModel SelectedDepartment {
-            get
-            {
-                return this.selectedDepattment;
-            }
-
-            set
-            {
-                if (value != this.selectedDepattment)
-                {
-                    this.selectedDepattment = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        public EmployeeModel SelectedEmployee
-        {
-            get
-            {
-                return this.selectedEmployee;
-            }
-
-            set
-            {
-                if (value != this.selectedEmployee)
-                {
-                    this.selectedEmployee = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         #region LoadDepartmentsCommand (Загрузка данных о департаментах)        
         private ICommand _loadDepartmentsCommand;
@@ -69,6 +33,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool LoadDepartmentsCommandExecute() => true;
         private void LoadDepartmentsCommanExecuted()
         {
+            Departments = new ObservableCollection<DepartmentModel>();
             Departments.Clear();
             ObservableCollection<EmployeeModel> emp = new ObservableCollection<EmployeeModel>();
             emp.Clear();
@@ -114,20 +79,20 @@ namespace OrdersManager.WPF.ViewModels
         private bool DeleteDepartmentCommandExecute() => true;
         private void DeleteDepartmentCommanExecuted()
         {
-            if (selectedDepattment is null)
+            if (_selectedDepattment is null)
             {
                 MessageBox.Show("Для удаления отдела необходимо выделить запись в списке отделов!!!", "Ошибка!!!");
             }
             else
             {
                 if (MessageBox.Show($"Удаление отдела повлечет за собой удаление связанных с ним сотрудников и заказов!!! \n" +
-                    $"Вы действительно хотите удалить отдел {selectedDepattment.DepartmentName}?",
+                    $"Вы действительно хотите удалить отдел {_selectedDepattment.DepartmentName}?",
                     "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        _departmentsRepository.Remove(selectedDepattment.DepartmentId);
-                        Departments.Remove(selectedDepattment);
+                        _departmentsRepository.Remove(_selectedDepattment.DepartmentId);
+                        Departments.Remove(_selectedDepattment);
                         SelectedDepartment = Departments.FirstOrDefault();
                     }
                     catch (System.Exception ex)
@@ -166,7 +131,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool DeleteEmployeeCommandExecute() => true;
         private void DeleteEmployeeCommanExecuted()
         {
-            if (selectedEmployee is null)
+            if (_selectedEmployee is null)
             {
                 MessageBox.Show("Для удаления сотрудника необходимо выделить запись в таблице сотрудников!!!", "Ошибка!!!");
             }
@@ -174,14 +139,14 @@ namespace OrdersManager.WPF.ViewModels
             {
                 if (MessageBox.Show($"Удаление сотрудника повлечет за собой удаление всех связанных с этим сотрудником заказов!!! \n" +
                     $"Вы действительно хотите удалить сотрудника: " +
-                    $"{selectedEmployee.EmployeeSurname}  {selectedEmployee.EmployeeName} {selectedEmployee.EmployeePatronymic}?",
+                    $"{_selectedEmployee.EmployeeSurname}  {_selectedEmployee.EmployeeName} {_selectedEmployee.EmployeePatronymic}?",
                     "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        _employeessRepository.Remove(selectedEmployee.EmployeeId);
-                        selectedDepattment.Employees.Remove(selectedEmployee);
-                        selectedEmployee = selectedDepattment.Employees.FirstOrDefault();
+                        _employeessRepository.Remove(_selectedEmployee.EmployeeId);
+                        _selectedDepattment.Employees.Remove(_selectedEmployee);
+                        _selectedEmployee = _selectedDepattment.Employees.FirstOrDefault();
                     }
                     catch (System.Exception ex)
                     {
@@ -215,8 +180,7 @@ namespace OrdersManager.WPF.ViewModels
         public DepartmentsViewModel(IRepository<Department> departmentsRepository, IRepository<Employee> employeeRepository) 
         {
             _departmentsRepository = departmentsRepository;
-            _employeessRepository = employeeRepository;
-            Departments = new ObservableCollection<DepartmentModel>();
+            _employeessRepository = employeeRepository;            
                       
         }
     }

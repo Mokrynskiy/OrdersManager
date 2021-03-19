@@ -13,54 +13,16 @@ using System.Windows.Input;
 
 namespace OrdersManager.WPF.ViewModels
 {
-    public class EmployeesViewModel : ViewModel, INotifyPropertyChanged
+    public class EmployeesViewModel : ViewModel
     {
         private readonly IRepository<Employee> _employeeRepository;
         private readonly IRepository<Order> _orderRepository;
-        private EmployeeModel selectedEmployee;
-        private OrderModel selectedOrder;
-        public ObservableCollection<EmployeeModel> Employees { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-        public EmployeeModel SelectedEmployee
-        {
-            get
-            {
-                return this.selectedEmployee;
-            }
-
-            set
-            {
-                if (value != this.selectedEmployee)
-                {
-                    this.selectedEmployee = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        public OrderModel SelectedOrder
-        {
-            get
-            {
-                return this.selectedOrder;
-            }
-
-            set
-            {
-                if (value != this.selectedOrder)
-                {
-                    this.selectedOrder = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        private ObservableCollection<EmployeeModel> _employees;
+        private EmployeeModel _selectedEmployee;
+        private OrderModel _selectedOrder;
+        public ObservableCollection<EmployeeModel> Employees { get => _employees; set => Set(ref _employees, value); } 
+        public EmployeeModel SelectedEmployee { get => _selectedEmployee; set => Set(ref _selectedEmployee, value); }
+        public OrderModel SelectedOrder { get => _selectedOrder; set => Set(ref _selectedOrder, value); }
 
         #region LoadEmployeesCommand (Загрузка данных о сотрудниках)        
         private ICommand _loadEmployeesCommand;
@@ -69,6 +31,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool LoadEmployeesCommandExecute() => true;
         private void LoadEmployeesCommanExecuted()
         {
+            Employees = new ObservableCollection<EmployeeModel>();
             Employees.Clear();
             ObservableCollection<OrderModel> orders = new ObservableCollection<OrderModel>();            
             var empl = _employeeRepository.Items.ToArray();
@@ -110,21 +73,21 @@ namespace OrdersManager.WPF.ViewModels
         private bool DeleteOrderCommandExecute() => true;
         private void DeleteOrderCommanExecuted()
         {
-            if (selectedOrder is null)
+            if (SelectedOrder is null)
             {
                 MessageBox.Show("Для удаления заказа необходимо выделить запись в таблице Заказы!!!", "Ошибка!!!");
             }
             else
             {
                 if (MessageBox.Show($"Вы действительно хотите удалить заказ\n " +
-                    $"{selectedOrder.OrderDate.ToShortDateString()} - {SelectedOrder.Contractor}", 
+                    $"{SelectedOrder.OrderDate.ToShortDateString()} - {SelectedOrder.Contractor}", 
                     "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        _orderRepository.Remove(selectedOrder.OrderId);
-                        selectedEmployee.Orders.Remove(SelectedOrder);
-                        selectedOrder = selectedEmployee.Orders.FirstOrDefault();
+                        _orderRepository.Remove(SelectedOrder.OrderId);
+                        SelectedEmployee.Orders.Remove(SelectedOrder);
+                        SelectedOrder = SelectedEmployee.Orders.FirstOrDefault();
                     }
                     catch (System.Exception ex)
                     {
@@ -162,7 +125,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool DeleteEmployeeCommandExecute() => true;
         private void DeleteEmployeeCommanExecuted()
         {
-            if (selectedEmployee is null)
+            if (SelectedEmployee is null)
             {
                 MessageBox.Show("Для удаления сотрудника необходимо выделить запись в списке сотрудников!!!", "Ошибка!!!");
             }
@@ -170,14 +133,14 @@ namespace OrdersManager.WPF.ViewModels
             {
                 if (MessageBox.Show($"Удаление сотрудника повлечет за собой удаление всех связанных с этим сотрудником заказов!!! \n" +
                     $"Вы действительно хотите удалить сотрудника: " +
-                    $"{selectedEmployee.EmployeeSurname}  {selectedEmployee.EmployeeName} {selectedEmployee.EmployeePatronymic}?",
+                    $"{SelectedEmployee.EmployeeSurname}  {SelectedEmployee.EmployeeName} {SelectedEmployee.EmployeePatronymic}?",
                     "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        _employeeRepository.Remove(selectedEmployee.EmployeeId);
-                        Employees.Remove(selectedEmployee);
-                        selectedEmployee = Employees.FirstOrDefault();
+                        _employeeRepository.Remove(SelectedEmployee.EmployeeId);
+                        Employees.Remove(SelectedEmployee);
+                        SelectedEmployee = Employees.FirstOrDefault();
                     }
                     catch (System.Exception ex)
                     {
@@ -210,8 +173,7 @@ namespace OrdersManager.WPF.ViewModels
         public EmployeesViewModel(IRepository<Employee> employeeRepository, IRepository<Order> orderRepository)
         {
             _employeeRepository = employeeRepository;
-            _orderRepository = orderRepository;
-            Employees = new ObservableCollection<EmployeeModel>();
+            _orderRepository = orderRepository;            
         }
     }
 }

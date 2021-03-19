@@ -12,33 +12,14 @@ using System.Windows.Input;
 
 namespace OrdersManager.WPF.ViewModels
 {
-    public class OrdersViewModel : ViewModel, INotifyPropertyChanged
+    public class OrdersViewModel : ViewModel
     {
-        private readonly IRepository<Order> _ordersRepository;        
+        private readonly IRepository<Order> _ordersRepository;
+        private ObservableCollection<OrderModel> _orders;
         private OrderModel selectedOrder;
-        public  ObservableCollection<OrderModel> Orders { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public OrderModel SelectedOrder
-        {
-            get
-            {
-                return this.selectedOrder;
-            }
-
-            set
-            {
-                if (value != this.selectedOrder)
-                {
-                    this.selectedOrder = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public  ObservableCollection<OrderModel> Orders { get => _orders; set=>Set(ref _orders, value); }
+        public  OrderModel SelectedOrder { get => selectedOrder; set => Set(ref selectedOrder, value); }
+        
         #region LoadOrdersCommand (загрузка данных о заказах)
         private ICommand _loadOrdersCommand;
         public ICommand LoadOrdersCommand => _loadOrdersCommand
@@ -46,6 +27,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool LoadOrdersCommandExecute() => true;
         private void LoadOrdersCommanExecuted()
         {
+            Orders = new ObservableCollection<OrderModel>();
             Orders.Clear();
             var order = _ordersRepository.Items;
             foreach (var item in order)
@@ -119,11 +101,9 @@ namespace OrdersManager.WPF.ViewModels
         }
         #endregion
         public OrdersViewModel(IRepository<Order> ordersRepository)
-        {
-            
-            _ordersRepository = ordersRepository;
-            
-            Orders = new ObservableCollection<OrderModel>();
+        {            
+            _ordersRepository = ordersRepository;           
+           
         }
         
 
