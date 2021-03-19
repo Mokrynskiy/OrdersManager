@@ -10,11 +10,12 @@ namespace OrdersManager.WPF.ViewModels
     public class MainWindowViewModel : ViewModel
     {
         #region Поля
-        private string _title = "Главное окно";        
+        private string _title = "Менеджер заказов";        
         private readonly IRepository<Employee> _employeesRepository;
         private readonly IRepository<Department> _departmentsRepository;
         private readonly IRepository<Order> _ordersRepository;
         private readonly IEmployeeDialog _employeeDialog;
+        private readonly IOrderDialog _orderDialog;
         private ViewModel _currentModel;
         #endregion
 
@@ -27,7 +28,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool CanShowEmployeeCommandExecute() => true; 
         private void OnShowEmployeesViewCommanExecuted()
         {
-            CurrentModel = new EmployeesViewModel(_employeesRepository, _ordersRepository, _departmentsRepository, _employeeDialog);
+            CurrentModel = new EmployeesViewModel(_employeesRepository, _ordersRepository, _departmentsRepository, _employeeDialog, _orderDialog);
         }
         #endregion
 
@@ -63,8 +64,9 @@ namespace OrdersManager.WPF.ViewModels
         public ViewModel CurrentModel { get => _currentModel; private set => Set(ref _currentModel, value); }
         #endregion
         public MainWindowViewModel( IRepository<Employee> employeeRepository, IRepository<Department> departmentRepository,
-            IRepository<Order> orderReposytory, IEmployeeDialog employeeDialog)
+            IRepository<Order> orderReposytory, IEmployeeDialog employeeDialog, IOrderDialog orderDialog)
         {
+            _orderDialog = orderDialog;
             _employeeDialog = employeeDialog;
             _employeesRepository = employeeRepository;
             _departmentsRepository = departmentRepository;

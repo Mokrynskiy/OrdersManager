@@ -18,6 +18,7 @@ namespace OrdersManager.WPF.ViewModels
         private readonly IRepository<Employee> _employeeRepository;
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Department> _departmentRepository;
+        private readonly IOrderDialog _orderDialog;
         private readonly IEmployeeDialog _employeeDialog;
         private ObservableCollection<EmployeeModel> _employees;
         private EmployeeModel _selectedEmployee;
@@ -46,7 +47,9 @@ namespace OrdersManager.WPF.ViewModels
                     {
                         Id = i.Id,
                         Date = i.Date,
-                        Contractor = i.Contractor
+                        Contractor = i.Contractor,
+                        AuthorId = i.Author.Id
+                        
                     });
                 }
                
@@ -99,6 +102,7 @@ namespace OrdersManager.WPF.ViewModels
             }
         }
         #endregion
+
         #region EditOrderCommand (Редактирование данных о заказе)        
         private ICommand _editOrderCommand;
         public ICommand EditOrderCommand => _editOrderCommand
@@ -106,9 +110,19 @@ namespace OrdersManager.WPF.ViewModels
         private bool EditOrderCommandExecute() => true;
         private void EditOrderCommanExecuted()
         {
-
+            string title = "Редактирование данных о заказе";
+            var ord = SelectedOrder;
+            var empl = _employeeRepository.Items.ToArray();
+            if (_orderDialog.Edit(ord, empl, title, false))
+            {
+                var order = _orderRepository.GetById(ord.Id);
+                
+                
+                return;
+            }
         }
         #endregion
+
         #region AddOrderCommand (Добавление заказа)        
         private ICommand _addOrderCommand;
         public ICommand AddOrderCommand => _addOrderCommand
@@ -214,8 +228,9 @@ namespace OrdersManager.WPF.ViewModels
             }     
         }
         #endregion
-        public EmployeesViewModel(IRepository<Employee> employeeRepository, IRepository<Order> orderRepository, IRepository<Department>departmentRepository , IEmployeeDialog employeeDialog)
+        public EmployeesViewModel(IRepository<Employee> employeeRepository, IRepository<Order> orderRepository, IRepository<Department>departmentRepository , IEmployeeDialog employeeDialog, IOrderDialog orderDialog)
         {
+            _orderDialog = orderDialog;
             _employeeDialog = employeeDialog;
             _employeeRepository = employeeRepository;
             _orderRepository = orderRepository;

@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:OrdersManager.WPF.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="280" Width="600"
-        d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}" WindowStartupLocation="Manual" WindowStyle="ToolWindow" >        
+        d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" ResizeMode="CanResize" >        
         
         <Grid>
         <Grid.RowDefinitions>

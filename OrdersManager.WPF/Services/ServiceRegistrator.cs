@@ -12,6 +12,7 @@ namespace OrdersManager.WPF.Services
     {
         public static IServiceCollection AddServices(this IServiceCollection services) => services
             .AddTransient<IEmployeeDialog, EmployeeDialogService>()
+            .AddTransient<IOrderDialog, OrderDialogService>()
             ;
     }
 }

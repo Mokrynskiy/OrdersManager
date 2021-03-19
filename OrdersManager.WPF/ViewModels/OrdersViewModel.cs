@@ -40,9 +40,9 @@ namespace OrdersManager.WPF.ViewModels
                 {
                     Id = item.Id,
                     Contractor = item.Contractor,
-                    ManagerId = item.Author.Id,
+                    AuthorId = item.Author.Id,
                     Date = item.Date,
-                    ManagerShortName = authorShortName
+                    AuthorShortName = authorShortName
                 });
             }               
         }
