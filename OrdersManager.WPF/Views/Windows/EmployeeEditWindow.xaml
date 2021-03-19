@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrdersManager.WPF.Views.Windows"
-        xmlns:vm="clr-namespace:OrdersManager.WPF.ViewModels"
+        xmlns:vm="clr-namespace:OrdersManager.WPF.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Binding" Height="280" Width="600"
-        d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}" WindowStartupLocation="Manual" WindowStyle="ToolWindow" >
-    <Grid>
+        d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}" WindowStartupLocation="Manual" WindowStyle="ToolWindow" >        
+        
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
@@ -37,24 +38,30 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Фамилия:</TextBlock>
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="Binding" Margin="3"></TextBox>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Employee.Surname}" Margin="3"></TextBox>
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Имя:</TextBlock>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="Binding" Margin="3"></TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Employee.Name}" Margin="3"></TextBox>
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Отчество:</TextBlock>
-                        <TextBox Grid.Row="2" Grid.Column="1" Text="Binding" Margin="3"></TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Employee.Patronymic}" Margin="3"></TextBox>
                         <TextBlock Grid.Row="3" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Пол:</TextBlock>
-                        <ComboBox Grid.Row="3" Grid.Column="1" Text="Binding" Margin="3"></ComboBox>
+                        <ComboBox  Grid.Row="3" Grid.Column="1"  Margin="3" ItemsSource="{Binding Genders}" SelectedValuePath="{Binding Genders}" SelectedValue="{Binding Employee.Gender}"></ComboBox>
                         <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Дата рождения:</TextBlock>
-                        <DatePicker Grid.Row="4" Grid.Column="1" Text="Binding" Margin="3"></DatePicker>
+                        <DatePicker Grid.Row="4" Grid.Column="1" Text="Binding" Margin="3" SelectedDate="{Binding Employee.Birthdey}"></DatePicker>
                         <TextBlock Grid.Row="5" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Отдел:</TextBlock>
-                        <ComboBox Grid.Row="5" Grid.Column="1" Text="Binding" Margin="3"></ComboBox>
+                        <ComboBox Grid.Row="5" Grid.Column="1" Text="Binding" Margin="3" ItemsSource="{Binding Departments}" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Employee.Department.Id}" IsEditable="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding SetDepartmentCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
                     </Grid>
                 </Border>
             </Grid>
         </Border>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">            
             <Button  Command="{StaticResource DialogResultCommand}" CommandParameter="true" IsDefault="True" Margin="10" Width="60">ОК</Button>
-            <Button  Grid.Row="2" Command="{StaticResource DialogResultCommand}" CommandParameter="False" IsCancel="True" Margin="10" Width="60">Отмена</Button>
+            <Button  Command="{StaticResource DialogResultCommand}" CommandParameter="False" IsCancel="True" Margin="10" Width="60">Отмена</Button>
         </StackPanel>       
         
     </Grid>

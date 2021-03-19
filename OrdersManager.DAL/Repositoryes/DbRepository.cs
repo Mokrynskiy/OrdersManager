@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrdersManager.DAL.Context;
-using OrdersManager.DAL.Entityes;
 using OrdersManager.DAL.Entityes.Base;
 using OrdersManager.Interfaces;
 using System;
@@ -70,32 +69,6 @@ namespace OrdersManager.DAL.Repositoryes
             _db.Entry(item).State = EntityState.Modified;
             if (AutoSaveChanges) await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
             
-        }
-
-        
-    }
-    class OrdersRepository : DbRepository<Order>
-    {
-        public override IQueryable<Order> Items => base.Items.Include(item => item.Author);
-        public OrdersRepository(OrdersManagerDbContext db): base(db) 
-        {
-
-        }
-    }
-    class EmploeesRepository : DbRepository<Employee>
-    {
-        public override IQueryable<Employee> Items => base.Items.Include(item => item.Department).Include(item =>item.Orders);
-        public EmploeesRepository(OrdersManagerDbContext db) : base(db)
-        {
-
-        }
-    }
-    class DepartmentsReposytory : DbRepository<Department>
-    {
-        public override IQueryable<Department> Items => base.Items.Include(item => item.Employees);
-        public DepartmentsReposytory (OrdersManagerDbContext db) : base(db)
-        {
-
-        }
+        }        
     }
 }

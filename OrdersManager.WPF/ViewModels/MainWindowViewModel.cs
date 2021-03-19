@@ -27,7 +27,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool CanShowEmployeeCommandExecute() => true; 
         private void OnShowEmployeesViewCommanExecuted()
         {
-            CurrentModel = new EmployeesViewModel(_employeesRepository, _ordersRepository, _employeeDialog);
+            CurrentModel = new EmployeesViewModel(_employeesRepository, _ordersRepository, _departmentsRepository, _employeeDialog);
         }
         #endregion
 

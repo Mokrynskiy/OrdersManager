@@ -16,6 +16,7 @@ namespace OrdersManager.WPF.ViewModels
     {
         private readonly IRepository<Employee> _employeeRepository;
         private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<Department> _departmentRepository;
         private readonly IEmployeeDialog _employeeDialog;
         private ObservableCollection<EmployeeModel> _employees;
         private EmployeeModel _selectedEmployee;
@@ -159,7 +160,21 @@ namespace OrdersManager.WPF.ViewModels
         {
             
             var Employee = SelectedEmployee;
-            if (_employeeDialog.Edit(Employee)) return;
+            var Departments = _departmentRepository.Items.ToArray();
+            if (_employeeDialog.Edit(Employee, Departments))
+            {
+                var emp = _employeeRepository.GetById(Employee.Id);
+                emp.Surname = Employee.Surname;
+                emp.Name = Employee.Name;
+                emp.Patronymic = Employee.Patronymic;
+                emp.Gender = Employee.Gender;
+                emp.Birthday = Employee.Birthdey;
+                emp.Department = _departmentRepository.GetById(Employee.Department.Id);
+                _employeeRepository.Update(emp);
+                SelectedEmployee = null;
+                SelectedEmployee = Employee;
+                return;
+            } 
             
         }
         #endregion
@@ -173,11 +188,12 @@ namespace OrdersManager.WPF.ViewModels
 
         }
         #endregion
-        public EmployeesViewModel(IRepository<Employee> employeeRepository, IRepository<Order> orderRepository, IEmployeeDialog employeeDialog)
+        public EmployeesViewModel(IRepository<Employee> employeeRepository, IRepository<Order> orderRepository, IRepository<Department>departmentRepository , IEmployeeDialog employeeDialog)
         {
             _employeeDialog = employeeDialog;
             _employeeRepository = employeeRepository;
-            _orderRepository = orderRepository;            
+            _orderRepository = orderRepository;
+            _departmentRepository = departmentRepository;
         }
     }
 }
