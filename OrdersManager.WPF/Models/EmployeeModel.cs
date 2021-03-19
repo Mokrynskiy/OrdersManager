@@ -6,12 +6,12 @@ namespace OrdersManager.WPF.Models
 {
     public class EmployeeModel
     {
-        public int EmployeeId { get; set; }
-        public string EmployeeSurname { get; set; }
-        public string EmployeeName { get; set; }
-        public string EmployeePatronymic { get; set; }
-        public DateTime EmployeeBirthdey { get; set; }
-        public Gender EmployeeGender { get; set; }
+        public int Id { get; set; }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string Patronymic { get; set; }
+        public DateTime Birthdey { get; set; }
+        public Gender Gender { get; set; }
         public DepartmentModel Department { get; set; }
         public ObservableCollection<OrderModel> Orders { get; set; }
     }

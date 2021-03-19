@@ -2,6 +2,7 @@
 using MathCore.WPF.ViewModels;
 using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
+using OrdersManager.WPF.Services.Interfaces;
 using System.Windows.Input;
 
 namespace OrdersManager.WPF.ViewModels
@@ -12,7 +13,8 @@ namespace OrdersManager.WPF.ViewModels
         private string _title = "Главное окно";        
         private readonly IRepository<Employee> _employeesRepository;
         private readonly IRepository<Department> _departmentsRepository;
-        private readonly IRepository<Order> _ordersRepository;        
+        private readonly IRepository<Order> _ordersRepository;
+        private readonly IEmployeeDialog _employeeDialog;
         private ViewModel _currentModel;
         #endregion
 
@@ -25,7 +27,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool CanShowEmployeeCommandExecute() => true; 
         private void OnShowEmployeesViewCommanExecuted()
         {
-            CurrentModel = new EmployeesViewModel(_employeesRepository, _ordersRepository);
+            CurrentModel = new EmployeesViewModel(_employeesRepository, _ordersRepository, _employeeDialog);
         }
         #endregion
 
@@ -60,9 +62,10 @@ namespace OrdersManager.WPF.ViewModels
         }
         public ViewModel CurrentModel { get => _currentModel; private set => Set(ref _currentModel, value); }
         #endregion
-        public MainWindowViewModel(IRepository<Employee> employeeRepository, IRepository<Department> departmentRepository,
-            IRepository<Order> orderReposytory)
+        public MainWindowViewModel( IRepository<Employee> employeeRepository, IRepository<Department> departmentRepository,
+            IRepository<Order> orderReposytory, IEmployeeDialog employeeDialog)
         {
+            _employeeDialog = employeeDialog;
             _employeesRepository = employeeRepository;
             _departmentsRepository = departmentRepository;
             _ordersRepository = orderReposytory;

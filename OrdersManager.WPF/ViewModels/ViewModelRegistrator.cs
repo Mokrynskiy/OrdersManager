@@ -9,6 +9,7 @@ namespace OrdersManager.WPF.ViewModels
             .AddTransient<OrdersViewModel>()
             .AddTransient<EmployeesViewModel>()
             .AddTransient<DepartmentsViewModel>()
+           
         ;
     }
 }

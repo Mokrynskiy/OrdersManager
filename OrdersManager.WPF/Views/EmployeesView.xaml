@@ -46,9 +46,9 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding EmployeeSurname}" Margin="0,0,3,0"></TextBlock>
-                                <TextBlock Text="{Binding EmployeeName}" Margin="0,0,3,0"></TextBlock>
-                                <TextBlock Text="{Binding EmployeePatronymic}"></TextBlock>
+                                <TextBlock Text="{Binding Surname}" Margin="0,0,3,0"></TextBlock>
+                                <TextBlock Text="{Binding Name}" Margin="0,0,3,0"></TextBlock>
+                                <TextBlock Text="{Binding Patronymic}"></TextBlock>
                             </StackPanel>
                            
                         </DataTemplate>
@@ -82,23 +82,23 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                     <TextBlock Text="Фамилия:"/>
-                                    <TextBlock Text="{Binding SelectedEmployee.EmployeeSurname}" Margin="10,0,0,5"/>
+                                    <TextBlock Text="{Binding SelectedEmployee.Surname}" Margin="10,0,0,5"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                     <TextBlock Text="Имя:"/>
-                                    <TextBlock Text="{Binding SelectedEmployee.EmployeeName}" Margin="10,0,0,5"/>
+                                    <TextBlock Text="{Binding SelectedEmployee.Name}" Margin="10,0,0,5"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                     <TextBlock Text="Отчество:"/>
-                                    <TextBlock Text="{Binding SelectedEmployee.EmployeePatronymic}" Margin="10,0,0,5"/>
+                                    <TextBlock Text="{Binding SelectedEmployee.Patronymic}" Margin="10,0,0,5"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                     <TextBlock Text="Пол:"/>
-                                    <TextBlock Text="{Binding SelectedEmployee.EmployeeGender}" Margin="10,0,0,5"/>
+                                    <TextBlock Text="{Binding SelectedEmployee.Gender}" Margin="10,0,0,5"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                     <TextBlock Text="Дата рождения:"/>
-                                    <TextBlock Text="{Binding SelectedEmployee.EmployeeBirthdey, StringFormat='{}{0:dd.MM.yyyy}'}" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding SelectedEmployee.Birthdey, StringFormat='{}{0:dd.MM.yyyy}'}" Margin="10,0,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                             <Border Style="{StaticResource GroupBorder}" Margin="5">
@@ -129,7 +129,7 @@
                     <Border Grid.Row="1" Style="{StaticResource GroupBorder}" Margin="3">
                         <DataGrid Margin="3" ItemsSource="{Binding SelectedEmployee.Orders}" SelectedItem="{Binding SelectedOrder, Mode=TwoWay}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Дата заказа" Binding="{Binding OrderDate, StringFormat='{}{0:dd.MM.yyyy}'}" Width="*"/>
+                                <DataGridTextColumn Header="Дата заказа" Binding="{Binding Date, StringFormat='{}{0:dd.MM.yyyy}'}" Width="*"/>
                                 <DataGridTextColumn Header="Контрагент" Binding="{Binding Contractor}" Width="4*"/>                                
                             </DataGrid.Columns>
                         </DataGrid>

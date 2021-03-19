@@ -4,7 +4,7 @@ namespace OrdersManager.WPF.Models
 {
     public class DepartmentModel
     {
-        public int DepartmentId { get; set; }
+        public int Id { get; set; }
         public string DepartmentName { get; set; }
         public int ManagerId { get; set; }
         public EmployeeModel Manager { get; set; }

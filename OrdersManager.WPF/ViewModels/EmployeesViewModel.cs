@@ -1,13 +1,12 @@
-﻿
-using MathCore.WPF.Commands;
+﻿using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
 using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
 using OrdersManager.WPF.Models;
+using OrdersManager.WPF.Services;
+using OrdersManager.WPF.Services.Interfaces;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,6 +16,7 @@ namespace OrdersManager.WPF.ViewModels
     {
         private readonly IRepository<Employee> _employeeRepository;
         private readonly IRepository<Order> _orderRepository;
+        private readonly IEmployeeDialog _employeeDialog;
         private ObservableCollection<EmployeeModel> _employees;
         private EmployeeModel _selectedEmployee;
         private OrderModel _selectedOrder;
@@ -42,21 +42,21 @@ namespace OrdersManager.WPF.ViewModels
                 {
                     orders.Add(new OrderModel
                     {
-                        OrderId = i.Id,
-                        OrderDate = i.Date,
+                        Id = i.Id,
+                        Date = i.Date,
                         Contractor = i.Contractor
                     });
                 }
                
                 EmployeeModel employee = new EmployeeModel
                 {
-                    EmployeeId = item.Id,
-                    EmployeeSurname = item.Surname,
-                    EmployeeName = item.Name,
-                    EmployeePatronymic = item.Patronymic,
-                    EmployeeBirthdey = item.Birthday,
-                    EmployeeGender = item.Gender,
-                    Department = new DepartmentModel { DepartmentId = item.Department.Id, DepartmentName = item.Department.Name},
+                    Id = item.Id,
+                    Surname = item.Surname,
+                    Name = item.Name,
+                    Patronymic = item.Patronymic,
+                    Birthdey = item.Birthday,
+                    Gender = item.Gender,
+                    Department = new DepartmentModel { Id = item.Department.Id, DepartmentName = item.Department.Name},
                     Orders = new ObservableCollection<OrderModel>(orders)
                 };
                 Employees.Add(employee);
@@ -80,12 +80,12 @@ namespace OrdersManager.WPF.ViewModels
             else
             {
                 if (MessageBox.Show($"Вы действительно хотите удалить заказ\n " +
-                    $"{SelectedOrder.OrderDate.ToShortDateString()} - {SelectedOrder.Contractor}", 
+                    $"{SelectedOrder.Date.ToShortDateString()} - {SelectedOrder.Contractor}", 
                     "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        _orderRepository.Remove(SelectedOrder.OrderId);
+                        _orderRepository.Remove(SelectedOrder.Id);
                         SelectedEmployee.Orders.Remove(SelectedOrder);
                         SelectedOrder = SelectedEmployee.Orders.FirstOrDefault();
                     }
@@ -133,12 +133,12 @@ namespace OrdersManager.WPF.ViewModels
             {
                 if (MessageBox.Show($"Удаление сотрудника повлечет за собой удаление всех связанных с этим сотрудником заказов!!! \n" +
                     $"Вы действительно хотите удалить сотрудника: " +
-                    $"{SelectedEmployee.EmployeeSurname}  {SelectedEmployee.EmployeeName} {SelectedEmployee.EmployeePatronymic}?",
+                    $"{SelectedEmployee.Surname}  {SelectedEmployee.Name} {SelectedEmployee.Patronymic}?",
                     "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        _employeeRepository.Remove(SelectedEmployee.EmployeeId);
+                        _employeeRepository.Remove(SelectedEmployee.Id);
                         Employees.Remove(SelectedEmployee);
                         SelectedEmployee = Employees.FirstOrDefault();
                     }
@@ -157,7 +157,10 @@ namespace OrdersManager.WPF.ViewModels
         private bool EditEmployeeCommandExecute() => true;
         private void EditEmployeeCommanExecuted()
         {
-
+            
+            var Employee = SelectedEmployee;
+            if (_employeeDialog.Edit(Employee)) return;
+            
         }
         #endregion
         #region AddEmployeeCommand (Добавление нового сотрудника)        
@@ -170,8 +173,9 @@ namespace OrdersManager.WPF.ViewModels
 
         }
         #endregion
-        public EmployeesViewModel(IRepository<Employee> employeeRepository, IRepository<Order> orderRepository)
+        public EmployeesViewModel(IRepository<Employee> employeeRepository, IRepository<Order> orderRepository, IEmployeeDialog employeeDialog)
         {
+            _employeeDialog = employeeDialog;
             _employeeRepository = employeeRepository;
             _orderRepository = orderRepository;            
         }

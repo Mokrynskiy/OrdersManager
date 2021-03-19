@@ -4,9 +4,7 @@ using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
 using OrdersManager.WPF.Models;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -40,11 +38,11 @@ namespace OrdersManager.WPF.ViewModels
                 
                 Orders.Add(new OrderModel
                 {
-                    OrderId = item.Id,
+                    Id = item.Id,
                     Contractor = item.Contractor,
-                    EmployeeId = item.Author.Id,
-                    OrderDate = item.Date,
-                    EmployeeShortName = authorShortName
+                    ManagerId = item.Author.Id,
+                    Date = item.Date,
+                    ManagerShortName = authorShortName
                 });
             }               
         }
@@ -63,12 +61,12 @@ namespace OrdersManager.WPF.ViewModels
             else
             {
                 if (MessageBox.Show($"Вы действительно хотите удалить заказ\n " +
-                    $"{selectedOrder.OrderDate.ToShortDateString()} - {SelectedOrder.Contractor}",
+                    $"{selectedOrder.Date.ToShortDateString()} - {SelectedOrder.Contractor}",
                     "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        _ordersRepository.Remove(selectedOrder.OrderId);
+                        _ordersRepository.Remove(selectedOrder.Id);
                         Orders.Remove(SelectedOrder);
                         selectedOrder = Orders.FirstOrDefault();
                     }

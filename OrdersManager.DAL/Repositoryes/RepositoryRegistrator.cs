@@ -7,9 +7,9 @@ namespace OrdersManager.DAL.Repositoryes
     public static class RepositoryRegistrator
     {
         public static IServiceCollection AddRepositoryesInDb(this IServiceCollection services) => services
-            .AddSingleton<IRepository<Department>, DepartmentsReposytory>()
-            .AddSingleton<IRepository<Employee>, EmploeesRepository>()
-            .AddSingleton<IRepository<Order>, OrdersRepository>()
+            .AddTransient<IRepository<Department>, DepartmentsReposytory>()
+            .AddTransient<IRepository<Employee>, EmploeesRepository>()
+            .AddTransient<IRepository<Order>, OrdersRepository>()
             ;
     }
 }

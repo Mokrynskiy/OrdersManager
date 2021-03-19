@@ -5,9 +5,7 @@ using OrdersManager.Interfaces;
 using OrdersManager.WPF.Models;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -44,23 +42,23 @@ namespace OrdersManager.WPF.ViewModels
                 foreach (var i in item.Employees)
                 {
                     emp.Add(new EmployeeModel {
-                        EmployeeSurname = i.Surname,
-                        EmployeeName = i.Name,
-                        EmployeePatronymic = i.Patronymic,
-                        EmployeeGender = i.Gender, 
-                        EmployeeId = i.Id, 
-                        EmployeeBirthdey = i.Birthday                     
+                        Surname = i.Surname,
+                        Name = i.Name,
+                        Patronymic = i.Patronymic,
+                        Gender = i.Gender, 
+                        Id = i.Id, 
+                        Birthdey = i.Birthday                     
                         });
                 }
                 var mgr = (from m in item.Employees where m.Id == item.ManagerId select m).FirstOrDefault();
                 EmployeeModel manager = null;
                 if (mgr != null)
                 {
-                    manager = new EmployeeModel { EmployeeId = mgr.Id, EmployeeSurname = mgr.Surname, EmployeeName = mgr.Name, EmployeePatronymic = mgr.Patronymic, EmployeeBirthdey = mgr.Birthday, EmployeeGender = mgr.Gender };
+                    manager = new EmployeeModel { Id = mgr.Id, Surname = mgr.Surname, Name = mgr.Name, Patronymic = mgr.Patronymic, Birthdey = mgr.Birthday, Gender = mgr.Gender };
                 }
                 
                 DepartmentModel department = new DepartmentModel {
-                    DepartmentId = item.Id,
+                    Id = item.Id,
                     DepartmentName = item.Name,
                     ManagerId = item.ManagerId,
                     Manager = manager,
@@ -91,7 +89,7 @@ namespace OrdersManager.WPF.ViewModels
                 {
                     try
                     {
-                        _departmentsRepository.Remove(_selectedDepattment.DepartmentId);
+                        _departmentsRepository.Remove(_selectedDepattment.Id);
                         Departments.Remove(_selectedDepattment);
                         SelectedDepartment = Departments.FirstOrDefault();
                     }
@@ -139,12 +137,12 @@ namespace OrdersManager.WPF.ViewModels
             {
                 if (MessageBox.Show($"Удаление сотрудника повлечет за собой удаление всех связанных с этим сотрудником заказов!!! \n" +
                     $"Вы действительно хотите удалить сотрудника: " +
-                    $"{_selectedEmployee.EmployeeSurname}  {_selectedEmployee.EmployeeName} {_selectedEmployee.EmployeePatronymic}?",
+                    $"{_selectedEmployee.Surname}  {_selectedEmployee.Name} {_selectedEmployee.Patronymic}?",
                     "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        _employeessRepository.Remove(_selectedEmployee.EmployeeId);
+                        _employeessRepository.Remove(_selectedEmployee.Id);
                         _selectedDepattment.Employees.Remove(_selectedEmployee);
                         _selectedEmployee = _selectedDepattment.Employees.FirstOrDefault();
                     }

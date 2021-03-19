@@ -1,0 +1,20 @@
+﻿<Window x:Class="OrdersManager.WPF.Views.Windows.EmployeeEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OrdersManager.WPF.Views.Windows"
+        xmlns:vm="clr-namespace:OrdersManager.WPF.ViewModels"
+        mc:Ignorable="d"
+        Title="EmployeeEditWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Command="{StaticResource DialogResultCommand}" CommandParameter="true" IsDefault="True">1111</Button>
+        <Button Grid.Column="1" Command="{StaticResource DialogResultCommand}" CommandParameter="False" IsCancel="True">2222</Button>
+    </Grid>
+</Window>

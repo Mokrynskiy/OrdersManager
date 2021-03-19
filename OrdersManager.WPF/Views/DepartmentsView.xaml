@@ -73,23 +73,23 @@
                                 <StackPanel Grid.Column="1" Margin="20,0,0,0">
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Фамилия:"/>
-                                        <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeSurname}" Margin="10,0,0,5"/>
+                                        <TextBlock Text="{Binding SelectedDepartment.Manager.Surname}" Margin="10,0,0,5"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Имя:"/>
-                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeName}" Margin="10,0,0,5"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.Name}" Margin="10,0,0,5"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Отчество:"/>
-                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeePatronymic}" Margin="10,0,0,5"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.Patronymic}" Margin="10,0,0,5"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Пол:"/>
-                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeGender}" Margin="10,0,0,5"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.Gender}" Margin="10,0,0,5"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                         <TextBlock Text="Дата рождения:"/>
-                                    <TextBlock Text="{Binding SelectedDepartment.Manager.EmployeeBirthdey, StringFormat='{}{0:dd.MM.yyyy}'}" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding SelectedDepartment.Manager.Birthdey, StringFormat='{}{0:dd.MM.yyyy}'}" Margin="10,0,0,0"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <Border Style="{StaticResource GroupBorder}" Margin="5">
@@ -120,11 +120,11 @@
                         <Border Grid.Row="1" Style="{StaticResource GroupBorder}" Margin="3">
                             <DataGrid Margin="3" ItemsSource="{Binding SelectedDepartment.Employees}" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Фамилия" Binding="{Binding EmployeeSurname}" Width="*"/>
-                                    <DataGridTextColumn Header="Имя" Binding="{Binding EmployeeName}" Width="*"/>
-                                    <DataGridTextColumn Header="Отчество" Binding="{Binding EmployeePatronymic}" Width="*"/>
-                                    <DataGridTextColumn Header="Пол" Binding="{Binding EmployeeGender}" Width="*"/>
-                                <DataGridTextColumn Header="Дата рождения" Binding="{Binding EmployeeBirthdey, StringFormat='{}{0:dd.MM.yyyy}'}" Width="*"/>
+                                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="*"/>
+                                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="*"/>
+                                    <DataGridTextColumn Header="Пол" Binding="{Binding Gender}" Width="*"/>
+                                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthdey, StringFormat='{}{0:dd.MM.yyyy}'}" Width="*"/>
                                 </DataGrid.Columns>                                    
                             </DataGrid>
                         </Border>

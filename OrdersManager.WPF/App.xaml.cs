@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OrdersManager.WPF.Data;
+using OrdersManager.WPF.Services;
 using OrdersManager.WPF.ViewModels;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace OrdersManager.WPF
@@ -12,11 +14,20 @@ namespace OrdersManager.WPF
     /// </summary>
     public partial class App : Application
     {
+        public static Window ActiveWindow => Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w.IsActive);
+        public static Window FocusedWindow => Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w.IsFocused);
+        public static Window CurrentWindow => FocusedWindow ?? ActiveWindow;
+        
         private static IHost _host;
         public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
         public static IServiceProvider Services => Host.Services;
         internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
-            .AddDatabase(host.Configuration.GetSection("Database"))            
+            .AddDatabase(host.Configuration.GetSection("Database"))   
+            .AddServices()
             .AddViewModel()
         ;
       
