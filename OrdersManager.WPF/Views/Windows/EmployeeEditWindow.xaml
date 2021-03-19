@@ -6,15 +6,56 @@
         xmlns:local="clr-namespace:OrdersManager.WPF.Views.Windows"
         xmlns:vm="clr-namespace:OrdersManager.WPF.ViewModels"
         mc:Ignorable="d"
-        Title="EmployeeEditWindow" Height="450" Width="800"
-        d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}"
-        >
+        Title="Binding" Height="280" Width="600"
+        d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}" WindowStartupLocation="Manual" WindowStyle="ToolWindow" >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Button Command="{StaticResource DialogResultCommand}" CommandParameter="true" IsDefault="True">1111</Button>
-        <Button Grid.Column="1" Command="{StaticResource DialogResultCommand}" CommandParameter="False" IsCancel="True">2222</Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border  Style="{StaticResource GroupBorder}" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource GroupBorder}" Margin="5">
+                    <Image Source="../../Img/Photo.jpg" Width="175"/>
+                </Border>
+                <Border Style="{StaticResource GroupBorder}" Grid.Column="1" Margin="5">
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Фамилия:</TextBlock>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="Binding" Margin="3"></TextBox>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Имя:</TextBlock>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="Binding" Margin="3"></TextBox>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Отчество:</TextBlock>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="Binding" Margin="3"></TextBox>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Пол:</TextBlock>
+                        <ComboBox Grid.Row="3" Grid.Column="1" Text="Binding" Margin="3"></ComboBox>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Дата рождения:</TextBlock>
+                        <DatePicker Grid.Row="4" Grid.Column="1" Text="Binding" Margin="3"></DatePicker>
+                        <TextBlock Grid.Row="5" Grid.Column="0" Margin="3" HorizontalAlignment="Right">Отдел:</TextBlock>
+                        <ComboBox Grid.Row="5" Grid.Column="1" Text="Binding" Margin="3"></ComboBox>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button  Command="{StaticResource DialogResultCommand}" CommandParameter="true" IsDefault="True" Margin="10" Width="60">ОК</Button>
+            <Button  Grid.Row="2" Command="{StaticResource DialogResultCommand}" CommandParameter="False" IsCancel="True" Margin="10" Width="60">Отмена</Button>
+        </StackPanel>       
+        
     </Grid>
 </Window>
