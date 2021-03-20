@@ -48,11 +48,14 @@ namespace OrdersManager.WPF.ViewModels
                         Id = i.Id,
                         Date = i.Date,
                         Contractor = i.Contractor,
-                        AuthorId = i.Author.Id
+                        AuthorId = i.Author.Id,
+                        Author = new EmployeeModel { Id = i.Author.Id, Name = i.Author.Name, 
+                            Surname = i.Author.Surname, Birthdey = i.Author.Birthday, 
+                            Patronymic = i.Author.Patronymic, 
+                            Department = new DepartmentModel { Id = i.Author.Department.Id, DepartmentName = i.Author.Department.Name} }
                         
                     });
-                }
-               
+                }               
                 EmployeeModel employee = new EmployeeModel
                 {
                     Id = item.Id,
@@ -109,15 +112,22 @@ namespace OrdersManager.WPF.ViewModels
             ??= new LambdaCommand(EditOrderCommanExecuted, EditOrderCommandExecute);
         private bool EditOrderCommandExecute() => true;
         private void EditOrderCommanExecuted()
-        {
+        {            
+            if (SelectedOrder == null)
+            {
+                MessageBox.Show("Необходимо выделить запись для редактирования!!!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             string title = "Редактирование данных о заказе";
             var ord = SelectedOrder;
             var empl = _employeeRepository.Items.ToArray();
             if (_orderDialog.Edit(ord, empl, title, false))
             {
                 var order = _orderRepository.GetById(ord.Id);
-                
-                
+                order.Contractor = ord.Contractor;
+                order.Date = ord.Date;
+                _orderRepository.Update(order);
+                SelectedOrder = ord;
                 return;
             }
         }
@@ -130,7 +140,28 @@ namespace OrdersManager.WPF.ViewModels
         private bool AddOrderCommandExecute() => true;
         private void AddOrderCommanExecuted()
         {
-
+            string title = "Создание нового заказа";
+            var ord = new OrderModel();
+            ord.Author = SelectedEmployee;
+            ord.AuthorId = SelectedEmployee.Id;
+            ord.Date = DateTime.Now;
+            var empl = _employeeRepository.Items.ToArray();           
+            if (_orderDialog.Edit(ord, empl, title, false))
+            {
+                if (ord.Contractor !=null && ord.Author!=null)
+                {
+                    var order = new Order();
+                    order.Contractor = ord.Contractor;
+                    order.Date = ord.Date;
+                    order.Author = _employeeRepository.GetById(ord.Author.Id);                    
+                    ord.Id = _orderRepository.Add(order).Id;
+                    SelectedEmployee.Orders.Add(ord);
+                    SelectedOrder = ord;
+                    return;
+                }
+                MessageBox.Show("Для добавления заказа необходимо заполнить все поля!!!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
         #endregion
 

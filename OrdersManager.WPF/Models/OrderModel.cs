@@ -8,6 +8,7 @@ namespace OrdersManager.WPF.Models
         public string Contractor { get; set; }
         public DateTime Date { get; set; }
         public int AuthorId { get; set; }
+        public EmployeeModel Author { get; set; }
         public string AuthorShortName { get; set; }
     }
 }

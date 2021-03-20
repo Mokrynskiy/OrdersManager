@@ -2,12 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OrdersManager.WPF.Views.Windows"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:vm="clr-namespace:OrdersManager.WPF.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="280" Width="600"
-        d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" ResizeMode="CanResize" >        
+        d:DataContext="{d:DesignInstance vm:EmployeeEditViewModel}" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">        
         
         <Grid>
         <Grid.RowDefinitions>
@@ -61,7 +60,7 @@
         </Border>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">            
             <Button  Command="{StaticResource DialogResultCommand}" CommandParameter="true" IsDefault="True" Margin="10" Width="60">ОК</Button>
-            <Button  Command="{StaticResource DialogResultCommand}" CommandParameter="False" IsCancel="True" Margin="10" Width="60">Отмена</Button>
+            <Button  Command="{StaticResource DialogResultCommand}" CommandParameter="false" IsCancel="True" Margin="10" Width="60">Отмена</Button>
         </StackPanel>       
         
     </Grid>

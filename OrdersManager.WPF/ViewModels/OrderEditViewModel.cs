@@ -1,15 +1,11 @@
 ﻿using MathCore.WPF.ViewModels;
 using OrdersManager.DAL.Entityes;
 using OrdersManager.WPF.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrdersManager.WPF.ViewModels
 {
-    class OrderEditViewModel : ViewModel
+    public class OrderEditViewModel : ViewModel
     {
         private OrderModel _order;
         public OrderModel Order { get => _order; set => Set(ref _order, value); }
