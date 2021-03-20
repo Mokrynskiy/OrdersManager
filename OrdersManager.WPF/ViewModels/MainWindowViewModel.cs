@@ -16,6 +16,7 @@ namespace OrdersManager.WPF.ViewModels
         private readonly IRepository<Order> _ordersRepository;
         private readonly IEmployeeDialog _employeeDialog;
         private readonly IOrderDialog _orderDialog;
+        private readonly IDepartmentDialog _departmentDialog;
         private ViewModel _currentModel;
         #endregion
 
@@ -39,7 +40,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool CanShowDepartmentsCommandExecute() => true;
         private void OnShowDepartmentsViewCommanExecuted()
         {
-            CurrentModel = new DepartmentsViewModel(_departmentsRepository, _employeesRepository);
+            CurrentModel = new DepartmentsViewModel(_departmentsRepository, _employeesRepository, _departmentDialog, _employeeDialog);
         }
         #endregion
 
@@ -64,8 +65,9 @@ namespace OrdersManager.WPF.ViewModels
         public ViewModel CurrentModel { get => _currentModel; private set => Set(ref _currentModel, value); }
         #endregion
         public MainWindowViewModel( IRepository<Employee> employeeRepository, IRepository<Department> departmentRepository,
-            IRepository<Order> orderReposytory, IEmployeeDialog employeeDialog, IOrderDialog orderDialog)
+            IRepository<Order> orderReposytory, IEmployeeDialog employeeDialog, IOrderDialog orderDialog, IDepartmentDialog departmentDialog)
         {
+            _departmentDialog = departmentDialog;
             _orderDialog = orderDialog;
             _employeeDialog = employeeDialog;
             _employeesRepository = employeeRepository;

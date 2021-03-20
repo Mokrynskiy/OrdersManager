@@ -3,7 +3,6 @@ using MathCore.WPF.ViewModels;
 using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
 using OrdersManager.WPF.Models;
-using OrdersManager.WPF.Services;
 using OrdersManager.WPF.Services.Interfaces;
 using System;
 using System.Collections.ObjectModel;
@@ -210,7 +209,7 @@ namespace OrdersManager.WPF.ViewModels
             string title = "Редактирование данных о сотруднике";
             var Employee = SelectedEmployee;
             var Departments = _departmentRepository.Items.ToArray();
-            if (_employeeDialog.Edit(Employee, Departments, title))
+            if (_employeeDialog.Edit(Employee, Departments, title,true))
             {
                 var emp = _employeeRepository.GetById(Employee.Id);
                 emp.Surname = Employee.Surname;
@@ -240,7 +239,7 @@ namespace OrdersManager.WPF.ViewModels
             Empl.Department = new DepartmentModel();
             Empl.Birthdey = DateTime.Now.AddYears(-18);
             var Departments = _departmentRepository.Items.ToArray();
-            if (_employeeDialog.Edit(Empl, Departments, title))
+            if (_employeeDialog.Edit(Empl, Departments, title, true))
             {
                 if (Empl.Surname != null && Empl.Name != null && Empl.Patronymic != null && Empl.Department != null)
                 {

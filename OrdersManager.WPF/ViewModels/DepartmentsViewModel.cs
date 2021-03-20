@@ -3,6 +3,8 @@ using MathCore.WPF.ViewModels;
 using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
 using OrdersManager.WPF.Models;
+using OrdersManager.WPF.Services;
+using OrdersManager.WPF.Services.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,7 +17,9 @@ namespace OrdersManager.WPF.ViewModels
     public class DepartmentsViewModel : ViewModel
     {
         private readonly IRepository<Department> _departmentsRepository;
-        private readonly IRepository<Employee> _employeessRepository;
+        private readonly IRepository<Employee> _employeesRepository;
+        private readonly IDepartmentDialog _departmentDialog;
+        private readonly IEmployeeDialog _employeeDialog;
         private ObservableCollection<DepartmentModel> _departments;
         private DepartmentModel _selectedDepattment;
         private EmployeeModel _selectedEmployee;
@@ -47,7 +51,8 @@ namespace OrdersManager.WPF.ViewModels
                         Patronymic = i.Patronymic,
                         Gender = i.Gender, 
                         Id = i.Id, 
-                        Birthdey = i.Birthday                     
+                        Birthdey = i.Birthday,     
+                        Department = new DepartmentModel { Id = item.Id, DepartmentName = i.Name}
                         });
                 }
                 var mgr = (from m in item.Employees where m.Id == item.ManagerId select m).FirstOrDefault();
@@ -101,6 +106,7 @@ namespace OrdersManager.WPF.ViewModels
             }
         }
         #endregion
+
         #region EditDepartmentCommand (Редактирование данных о заказе)        
         private ICommand _editDepartmentCommand;
         public ICommand EditDepartmentCommand => _editDepartmentCommand
@@ -111,6 +117,7 @@ namespace OrdersManager.WPF.ViewModels
 
         }
         #endregion
+
         #region AddDepartmentCommand (Добавление заказа)        
         private ICommand _addDepartmentCommand;
         public ICommand AddDepartmentCommand => _addDepartmentCommand
@@ -122,7 +129,7 @@ namespace OrdersManager.WPF.ViewModels
         }
         #endregion
 
-        #region DeleteEmployeeCommand (Удаление данных о соткгднике)        
+        #region DeleteEmployeeCommand (Удаление данных о сотруднике)        
         private ICommand _deleteEmployeeCommand;
         public ICommand DeleteEmployeeCommand => _deleteEmployeeCommand
             ??= new LambdaCommand(DeleteEmployeeCommanExecuted, DeleteEmployeeCommandExecute);
@@ -142,7 +149,7 @@ namespace OrdersManager.WPF.ViewModels
                 {
                     try
                     {
-                        _employeessRepository.Remove(_selectedEmployee.Id);
+                        _employeesRepository.Remove(_selectedEmployee.Id);
                         _selectedDepattment.Employees.Remove(_selectedEmployee);
                         _selectedEmployee = _selectedDepattment.Employees.FirstOrDefault();
                     }
@@ -154,6 +161,7 @@ namespace OrdersManager.WPF.ViewModels
             }
         }
         #endregion
+
         #region EditEmployeeCommand (Редактирование данных о сотрудние)        
         private ICommand _editEmployeeCommand;
         public ICommand EditEmployeeCommand => _editEmployeeCommand
@@ -161,9 +169,32 @@ namespace OrdersManager.WPF.ViewModels
         private bool EditEmployeeCommandExecute() => true;
         private void EditEmployeeCommanExecuted()
         {
+            string title = "Редактирование данных о сотруднике";
+            if (SelectedEmployee == null)
+            {
+                MessageBox.Show("Необходимо выделить запись для редактирования!!!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var Employee = SelectedEmployee;
+            var Departments = _departmentsRepository.Items.ToArray();
+            if (_employeeDialog.Edit(Employee, Departments, title, false))
+            {
+                var emp = _employeesRepository.GetById(Employee.Id);
+                emp.Surname = Employee.Surname;
+                emp.Name = Employee.Name;
+                emp.Patronymic = Employee.Patronymic;
+                emp.Gender = Employee.Gender;
+                emp.Birthday = Employee.Birthdey;
+                emp.Department = _departmentsRepository.GetById(Employee.Department.Id);
+                _employeesRepository.Update(emp);
+                SelectedEmployee = null;
+                SelectedEmployee = Employee;
+                return;
+            }
 
         }
         #endregion
+
         #region AddEmployeeCommand (Добавление нового сотрудника)        
         private ICommand _addEmployeeCommand;
         public ICommand AddEmployeeCommand => _addEmployeeCommand
@@ -171,14 +202,41 @@ namespace OrdersManager.WPF.ViewModels
         private bool AddEmployeeCommandExecute() => true;
         private void AddEmployeeCommanExecuted()
         {
-
+            string title = "Добавление нового сотрудника";
+            var Empl = new EmployeeModel();
+            Empl.Department = SelectedDepartment;            
+            Empl.Birthdey = DateTime.Now.AddYears(-18);
+            var Departments = _departmentsRepository.Items.ToArray();
+            if (_employeeDialog.Edit(Empl, Departments, title, false))
+            {
+                if (Empl.Surname != null && Empl.Name != null && Empl.Patronymic != null && Empl.Department != null)
+                {
+                    var emp = new Employee();
+                    emp.Surname = Empl.Surname;
+                    emp.Name = Empl.Name;
+                    emp.Patronymic = Empl.Patronymic;
+                    emp.Gender = Empl.Gender;
+                    emp.Birthday = Empl.Birthdey;
+                    var dept = _departmentsRepository.GetById(Empl.Department.Id);
+                    emp.Department = dept;
+                    _employeesRepository.Add(emp);
+                    Empl.Id = emp.Id;
+                    SelectedDepartment.Employees.Add(Empl);
+                    SelectedEmployee = Empl;
+                    return;
+                }
+                MessageBox.Show("Для добавдения сотрудника необходимо заполнить все поля!!!",
+                    "Ошибка добавления сотрудника!!!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         #endregion
 
-        public DepartmentsViewModel(IRepository<Department> departmentsRepository, IRepository<Employee> employeeRepository) 
+        public DepartmentsViewModel(IRepository<Department> departmentsRepository, IRepository<Employee> employeeRepository, IDepartmentDialog departmentDialog, IEmployeeDialog employeeDialog) 
         {
+            _employeeDialog = employeeDialog;
+            _departmentDialog = departmentDialog;
             _departmentsRepository = departmentsRepository;
-            _employeessRepository = employeeRepository;            
+            _employeesRepository = employeeRepository;            
                       
         }
     }

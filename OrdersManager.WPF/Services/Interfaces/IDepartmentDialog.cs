@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace OrdersManager.WPF.Services.Interfaces
 {
-    public interface IOrderDialog
+    public interface IDepartmentDialog
     {
-        public bool Edit(OrderModel orderModel, IEnumerable<Employee> employees, string title, bool enableSelectEmployee);
+        public bool Edit(DepartmentModel departmentModel, IEnumerable<Employee> employees, string title);
     }
 }

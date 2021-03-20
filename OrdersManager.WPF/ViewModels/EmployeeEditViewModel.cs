@@ -15,11 +15,12 @@ namespace OrdersManager.WPF.ViewModels
        
         private EmployeeModel _employee;
         public string Title { get; set; }
+        public bool EnableSelectDepartment { get; private set; }
         public IEnumerable<Department> Departments { get; private set; }
         public EmployeeModel Employee { get => _employee; set => Set(ref _employee, value); }
         public static IEnumerable<Gender> Genders { get => Enum.GetValues(typeof(Gender)).Cast<Gender>(); }
 
-        public EmployeeEditViewModel(EmployeeModel employee, IEnumerable<Department> departments, string title)
+        public EmployeeEditViewModel(EmployeeModel employee, IEnumerable<Department> departments, string title, bool enableSelectDepartment)
         {           
             Employee = employee;
             Departments = departments;
