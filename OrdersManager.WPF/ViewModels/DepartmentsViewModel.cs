@@ -261,6 +261,30 @@ namespace OrdersManager.WPF.ViewModels
         }
         #endregion
 
+        #region AddManagerCommand (Назначение руководителя отдела)        
+        private ICommand _addManagerCommand;
+        public ICommand AddManagerCommand => _addManagerCommand
+            ??= new LambdaCommand(AddManagerCommanExecuted, AddManagerCommandExecute);
+        private bool AddManagerCommandExecute() => true;
+        private void AddManagerCommanExecuted()
+        {
+            if (SelectedEmployee == null)
+            {
+                MessageBox.Show("Необходимо выделить сотрудника для назначения!!!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var selDept = SelectedDepartment;
+            var dept = _departmentsRepository.GetById(selDept.Id);
+            dept.ManagerId = SelectedEmployee.Id;
+            _departmentsRepository.Update(dept);
+            selDept.ManagerId = dept.ManagerId;
+            this.LoadDepartmentsCommand.Execute(null);            
+            SelectedDepartment = (from d in Departments where d.Id == selDept.Id select d).FirstOrDefault();
+
+
+        }
+        #endregion
+
         public DepartmentsViewModel(IRepository<Department> departmentsRepository, IRepository<Employee> employeeRepository, IDepartmentDialog departmentDialog, IEmployeeDialog employeeDialog) 
         {
             _employeeDialog = employeeDialog;

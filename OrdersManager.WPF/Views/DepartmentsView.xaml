@@ -106,6 +106,9 @@
                         <DockPanel>
                         <TextBlock Style="{StaticResource Lable}" VerticalAlignment="Center">Список сотрудников</TextBlock>
                         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" >
+                            <Button Margin="5,5,20,5"  ToolTip="Добавить сотрудника" Command="{Binding AddManagerCommand}">
+                                Назначить  руководителем
+                            </Button>
                             <Button Margin="5"  ToolTip="Добавить сотрудника" Command="{Binding AddEmployeeCommand}">
                                 <Image Source="../Img/add.png" Width="30"/>
                             </Button>
