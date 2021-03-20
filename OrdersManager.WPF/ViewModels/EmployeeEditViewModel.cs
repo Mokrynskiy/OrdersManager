@@ -27,7 +27,7 @@ namespace OrdersManager.WPF.ViewModels
             Title = title;
         }
 
-        #region SetDepartmentCommand (Редактирование данных о сотрудние)        
+        #region SetDepartmentCommand (департамент)        
         private ICommand _setDepartmentCommand;
         public ICommand SetDepartmentCommand => _setDepartmentCommand
             ??= new LambdaCommand(SetDepartmentCommanExecuted, SetDepartmentCommandExecute);

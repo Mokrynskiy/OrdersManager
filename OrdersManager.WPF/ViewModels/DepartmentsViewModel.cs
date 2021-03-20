@@ -3,7 +3,6 @@ using MathCore.WPF.ViewModels;
 using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
 using OrdersManager.WPF.Models;
-using OrdersManager.WPF.Services;
 using OrdersManager.WPF.Services.Interfaces;
 using System;
 using System.Collections.ObjectModel;

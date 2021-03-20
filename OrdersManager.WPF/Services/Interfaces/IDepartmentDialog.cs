@@ -1,6 +1,4 @@
-﻿using OrdersManager.DAL.Entityes;
-using OrdersManager.WPF.Models;
-using System.Collections.Generic;
+﻿using OrdersManager.WPF.Models;
 
 namespace OrdersManager.WPF.Services.Interfaces
 {
