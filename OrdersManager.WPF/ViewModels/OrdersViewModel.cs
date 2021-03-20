@@ -3,6 +3,8 @@ using MathCore.WPF.ViewModels;
 using OrdersManager.DAL.Entityes;
 using OrdersManager.Interfaces;
 using OrdersManager.WPF.Models;
+using OrdersManager.WPF.Services.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -13,6 +15,8 @@ namespace OrdersManager.WPF.ViewModels
     public class OrdersViewModel : ViewModel
     {
         private readonly IRepository<Order> _ordersRepository;
+        private readonly IRepository<Employee> _employeeRepository;
+        private readonly IOrderDialog _orderDialog;
         private ObservableCollection<OrderModel> _orders;
         private OrderModel selectedOrder;
         public  ObservableCollection<OrderModel> Orders { get => _orders; set=>Set(ref _orders, value); }
@@ -47,6 +51,7 @@ namespace OrdersManager.WPF.ViewModels
             }               
         }
         #endregion
+
         #region DeleteOrderCommand (Удаление данных о заказе)        
         private ICommand _deleteOrderCommand;
         public ICommand DeleteOrderCommand => _deleteOrderCommand
@@ -78,6 +83,7 @@ namespace OrdersManager.WPF.ViewModels
             }
         }
         #endregion
+
         #region EditOrderCommand (Редактирование данных о заказе)        
         private ICommand _editOrderCommand;
         public ICommand EditOrderCommand => _editOrderCommand
@@ -85,9 +91,28 @@ namespace OrdersManager.WPF.ViewModels
         private bool EditOrderCommandExecute() => true;
         private void EditOrderCommanExecuted()
         {
-
+            if (SelectedOrder == null)
+            {
+                MessageBox.Show("Необходимо выделить запись для редактирования!!!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            string title = "Редактирование данных о заказе";
+            var ord = SelectedOrder;
+            var empl = _employeeRepository.Items.ToArray();
+            if (_orderDialog.Edit(ord, empl, title, true))
+            {
+                var order = _ordersRepository.GetById(ord.Id);
+                order.Contractor = ord.Contractor;
+                order.Date = ord.Date;
+                order.Author = _employeeRepository.GetById(ord.AuthorId);
+                _ordersRepository.Update(order);
+                this.LoadOrdersCommand.Execute(null);
+                SelectedOrder = ord;
+                return;
+            }
         }
         #endregion
+
         #region AddOrderCommand (Добавление заказа)        
         private ICommand _addOrderCommand;
         public ICommand AddOrderCommand => _addOrderCommand
@@ -95,13 +120,34 @@ namespace OrdersManager.WPF.ViewModels
         private bool AddOrderCommandExecute() => true;
         private void AddOrderCommanExecuted()
         {
-
+            string title = "Создание нового заказа";
+            var ord = new OrderModel();            
+            ord.Date = DateTime.Now;
+            var empl = _employeeRepository.Items.ToArray();
+            if (_orderDialog.Edit(ord, empl, title, true))
+            {
+                if (ord.Contractor != null && ord.AuthorId != null)
+                {
+                    var order = new Order();
+                    order.Contractor = ord.Contractor;
+                    order.Date = ord.Date;
+                    order.Author = _employeeRepository.GetById(ord.AuthorId);
+                    ord.Id = _ordersRepository.Add(order).Id;
+                    ord.AuthorShortName = $"{order.Author.Surname} {order.Author.Name.FirstOrDefault()}. {order.Author.Patronymic.FirstOrDefault()}.";
+                    Orders.Add(ord);
+                    SelectedOrder = ord;
+                    return;
+                }
+                MessageBox.Show("Для добавления заказа необходимо заполнить все поля!!!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
         #endregion
-        public OrdersViewModel(IRepository<Order> ordersRepository)
+        public OrdersViewModel(IRepository<Order> ordersRepository, IRepository<Employee> employeesRepository, IOrderDialog orderDialog)
         {            
-            _ordersRepository = ordersRepository;           
-           
+            _ordersRepository = ordersRepository;
+            _employeeRepository = employeesRepository;
+            _orderDialog = orderDialog;
         }
         
 

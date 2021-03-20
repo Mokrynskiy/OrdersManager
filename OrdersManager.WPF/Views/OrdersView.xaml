@@ -20,10 +20,10 @@
         <DockPanel>
             <TextBlock Style="{StaticResource Title}">ЗАКАЗЫ</TextBlock>
             <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" >
-                <Button Margin="5"  ToolTip="Добавить заказ">
+                <Button Margin="5"  ToolTip="Добавить заказ" Command="{Binding AddOrderCommand}">
                     <Image Source="../Img/add.png" Width="30"/>
                 </Button>
-                <Button Margin="5"  ToolTip="Редактировать заказ">
+                <Button Margin="5"  ToolTip="Редактировать заказ" Command="{Binding EditOrderCommand}">
                     <Image Source="../Img/edit.png" Width="30" />
                 </Button>
                 <Button Margin="5"  ToolTip="Удалить заказ" Command="{Binding DeleteOrderCommand}">

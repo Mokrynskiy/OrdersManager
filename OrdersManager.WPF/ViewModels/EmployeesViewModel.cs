@@ -141,10 +141,12 @@ namespace OrdersManager.WPF.ViewModels
         private void AddOrderCommanExecuted()
         {
             string title = "Создание нового заказа";
-            var ord = new OrderModel();
-            ord.Author = SelectedEmployee;
-            ord.AuthorId = SelectedEmployee.Id;
-            ord.Date = DateTime.Now;
+            var ord = new OrderModel
+            {
+                Author = SelectedEmployee,
+                AuthorId = SelectedEmployee.Id,
+                Date = DateTime.Now
+            };
             var empl = _employeeRepository.Items.ToArray();           
             if (_orderDialog.Edit(ord, empl, title, false))
             {
@@ -197,6 +199,7 @@ namespace OrdersManager.WPF.ViewModels
             }
         }
         #endregion
+
         #region EditEmployeeCommand (Редактирование данных о сотрудние)        
         private ICommand _editEmployeeCommand;
         public ICommand EditEmployeeCommand => _editEmployeeCommand
@@ -224,6 +227,7 @@ namespace OrdersManager.WPF.ViewModels
             
         }
         #endregion
+
         #region AddEmployeeCommand (Добавление нового сотрудника)        
         private ICommand _addEmployeeCommand;
         public ICommand AddEmployeeCommand => _addEmployeeCommand

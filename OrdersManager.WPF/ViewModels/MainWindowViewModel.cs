@@ -50,7 +50,7 @@ namespace OrdersManager.WPF.ViewModels
         private bool CanShowOrdersCommandExecute() => true;
         private void OnShowOrdersViewCommanExecuted()
         {
-            CurrentModel = new OrdersViewModel(_ordersRepository);
+            CurrentModel = new OrdersViewModel(_ordersRepository, _employeesRepository, _orderDialog);
         }
         #endregion
 
