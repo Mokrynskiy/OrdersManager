@@ -6,6 +6,6 @@ namespace OrdersManager.WPF.Services.Interfaces
 {
     public interface IDepartmentDialog
     {
-        public bool Edit(DepartmentModel departmentModel, IEnumerable<Employee> employees, string title);
+        public bool Edit(DepartmentModel departmentModel,  string title);
     }
 }

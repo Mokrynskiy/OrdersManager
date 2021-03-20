@@ -1,12 +1,32 @@
 ﻿<Window x:Class="OrdersManager.WPF.Views.Windows.DepartmentEditWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OrdersManager.WPF.Views.Windows"
+        xmlns:vm="clr-namespace:OrdersManager.WPF.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="DepartmentEditWindow" Height="450" Width="800">
+        Title="{Binding Title}" Height="150" Width="400"
+        d:DataContext="{d:DesignInstance vm:DepartmentEditViewModel}" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" >
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Style="{StaticResource GroupBorder}" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Margin="5">Название отдела:</TextBlock>
+                    <TextBox Margin="5" Width="250" Text="{Binding Department.DepartmentName}"></TextBox>
+                </StackPanel>                
+            </Grid>
+        </Border>
+        <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Margin="10" Width="60" Command="{StaticResource DialogResultCommand}" CommandParameter="true" IsDefault="True">ОК</Button>
+            <Button Margin="10" Width="60" Command="{StaticResource DialogResultCommand}" CommandParameter="false" IsCancel="True">Отмена</Button>
+        </StackPanel>
     </Grid>
 </Window>

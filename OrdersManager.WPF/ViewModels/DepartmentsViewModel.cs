@@ -114,17 +114,47 @@ namespace OrdersManager.WPF.ViewModels
         private bool EditDepartmentCommandExecute() => true;
         private void EditDepartmentCommanExecuted()
         {
+            string title = "Редактирование данных об отделе";
+            if (SelectedDepartment == null)
+            {
+                MessageBox.Show("Необходимо выделить запись для редактирования!!!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var dept = SelectedDepartment;
+            if (_departmentDialog.Edit(dept, title))
+            {
+                var dep = _departmentsRepository.GetById(dept.Id);
+                _departmentsRepository.Update(dep);
+                SelectedDepartment = dept;
+                return;
+            }
 
         }
         #endregion
 
-        #region AddDepartmentCommand (Добавление заказа)        
+        #region AddDepartmentCommand (Добавление отдела)        
         private ICommand _addDepartmentCommand;
         public ICommand AddDepartmentCommand => _addDepartmentCommand
             ??= new LambdaCommand(AddDepartmentCommanExecuted, AddDepartmentCommandExecute);
         private bool AddDepartmentCommandExecute() => true;
         private void AddDepartmentCommanExecuted()
         {
+            string title = "Добавление нового отдела";
+            
+            var dept = new DepartmentModel();
+            if (_departmentDialog.Edit(dept, title))
+            {
+                if (dept.DepartmentName == null)
+                {
+                    MessageBox.Show("Название отдела не может быть пустым", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }               
+                dept.Id = _departmentsRepository.Add(new Department { Name = dept.DepartmentName}).Id;
+                Departments.Add(dept);
+                SelectedDepartment = dept;
+                MessageBox.Show($"Отдел {dept.DepartmentName} успешно создан. \n Для дальнейшего редактирования создайте пользователей и назначте руководителя отдела." , "Внимание!!!", MessageBoxButton.OK, MessageBoxImage.Information) ;
+                return;
+            }
 
         }
         #endregion

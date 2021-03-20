@@ -11,14 +11,13 @@ namespace OrdersManager.WPF.ViewModels
 {
     public class DepartmentEditViewModel : ViewModel
     {
-        private DepartmentModel _departmentModel;
-        private IEnumerable<Employee> _employees;
+        
+        public DepartmentModel Department { get; set; }     
         public string Title { get; set; }
 
-        public DepartmentEditViewModel(DepartmentModel departmentModel, IEnumerable<Employee> employees, string title)
+        public DepartmentEditViewModel(DepartmentModel departmentModel, string title)
         {
-            _departmentModel = departmentModel;
-            _employees = employees;
+            Department = departmentModel;            
             Title = title;
         }
     }

@@ -13,9 +13,9 @@ namespace OrdersManager.WPF.Services
 {
     public class DepartmentDialogService : IDepartmentDialog
     {
-        public bool Edit(DepartmentModel departmentModel, IEnumerable<Employee> employees, string title)
+        public bool Edit(DepartmentModel departmentModel, string title)
         {
-            var editingDepartmentVm = new DepartmentEditViewModel(departmentModel, employees, title);
+            var editingDepartmentVm = new DepartmentEditViewModel(departmentModel,  title);
             var editEmployeeWindow = new DepartmentEditWindow
             {
                 DataContext = editingDepartmentVm
